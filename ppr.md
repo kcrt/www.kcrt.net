@@ -1,5 +1,4 @@
 ---
-layout: page
 title: "Programmer's Pocket Reference"
 permalink: /ppr
 ---
