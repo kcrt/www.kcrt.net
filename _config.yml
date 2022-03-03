@@ -1,3 +1,24 @@
-theme: jekyll-theme-minimal
 title: Nanoseconds Hunter
 description: "kcrt's web site."
+url: "https://www.kcrt.net/"
+author:
+  name: TAKAHASHI, Kyohei
+  email: kcrt@kcrt.net
+markdown: kramdown
+kramdown:
+  input: GFM
+timezone: Asia/Tokyo
+livereload: true
+defaults:
+  -
+    scope:
+      path: ""
+      type: pages
+    values:
+      layout: pages
+  -
+    scope:
+      path: ""
+      type: posts
+    values:
+      layout: posts
