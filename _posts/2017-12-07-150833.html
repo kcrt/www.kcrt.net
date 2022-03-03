@@ -1,0 +1,42 @@
+---
+date: 2017-12-07 15:08:33
+tags:
+- libr-bridge
+- node.js
+- npm
+- r
+- 旧日記
+- ソフトウェア
+- プログラミング
+title: RをJavaScript(Node.js)から使ってみる ＋α：R Advent Calendar 2017 day 7
+type: post
+---
+
+<p><em>この記事は、Japan.R 2017での講演内容を再編成した物です。</em></p>
+<p>Node.jsで作られたアプリケーションや、Electronアプリケーションを、Rと連携させたいと思ったことはありませんか？</p>
+<h2>JavaScriptとRの連携</h2>
+<p>Rで統計処理をしているときに、JavaScriptでインタラクティブなビジュアライゼーションを行いたい、ということはあると思います。この目的であれば、<a href="http://shiny.rstudio.com">shiny (Winston Chang et al.)</a>という便利なパッケージがあります。<a href="http://www.htmlwidgets.org">htmlwidgets(JJ Allaire et al.)</a>も便利なパッケージで、<a href="https://github.com/bwlewis/rthreejs">threejs</a>や<a href="http://hafen.github.io/rbokeh/">bokeh</a>などの連携を行うことができます。</p>
+<p>では、逆は、というとあまり決定的なアプリケーションはありません。npmをみてみると、<span style="font-size: 1rem;"><a href="https://www.npmjs.com/package/controlr">controlr</a>, <a href="https://www.npmjs.com/package/r-script">r-script</a>, <a href="https://www.npmjs.com/package/computer">computer</a>というパッケージがありますが、どのパッケージもRをspawnしてstdin/stdout経由でアクセスしているだけであり、すこし物足りません。</span></p>
+<p>そこで、勉強がてら自前ですこし作ってみることにしました。</p>
+<h2>libr-bridge</h2>
+<p><a href="https://github.com/kcrt/libr-bridge">libr-bridge</a>はlibr(WindowsではR.dll)と連携して、Node.js環境からRを使用するパッケージです。</p>
+<pre>let r = new R();
+
+const arrA = [1.00, 3.36, 8.01, 1.22, 3.74, 2.43, 7.95, 8.32, 7.45, 4.36];
+const arrB = [1.04, 3.65, 6.82, 1.46, 2.70, 2.49, 7.48, 8.28, 8.93, 5.63];
+
+/* Some functions are already loaded to libr-bridge */
+console.log("Mean of arrA: " + r.mean(arrA));
+console.log("Mean of arrB: " + r.mean(arrB));
+console.log("Peason's correlation coefficient: " + r.cor(arrA, arrB));</pre>
+<p>libr-bridgeを利用することで、Rの関数にアクセスすることが出来ます。eval関数も備えていますので、とりあえずデータだけ渡してしまって、凝った作業をRスクリプトで行い、結果を受け取ることも出来ます。</p>
+<p>まだまだfactorやdata.frame, S3/S4クラスなど対応しないと行けないことは山積みですが、Node.jsで出来る作業の幅を広げてくれます。</p>
+<h2>どうやって実現しているの？</h2>
+<p>ぜひ、ソースコードを見ていただきたいですがlibRのAPIをゴリゴリに呼び出して動作を行っています。Rの内部挙動を理解するのにも役に立ちました。</p>
+<h2>小ネタ</h2>
+<p>Rでは倍精度浮動小数点(double9は他言語と同じように<a href="https://ja.wikipedia.org/wiki/IEEE_754">IEEE 754</a>に従って、実装されています。これは、1bitの符号と、11bitの指数部、52bitの仮数部で数値を表す方式です。</p>
+<p>NaNはこの決まりに含まれており、指数部のbitがすべて1であり、仮数部が0以外のもの、と定められています。これは他の言語も共通です。</p>
+<p><img class="alignnone size-full wp-image-927" src="http://blog.kcrt.net/files/2017/12/double.png" alt="" width="800" height="600" /></p>
+<p>しかし、 NAはR独自の表現であり、この決まりの中には含まれていません。</p>
+<p>Rでは、少し特殊な仕組みでNAを実現していて、仮数部が1954(R言語設計者の一人のRoss Ihakaの誕生年)のNaNをNAとして区別して扱っています。</p>
+<p>今回、libr-bridgeを作るのに、Rの内部を調べていくうちにこういった小ネタをいくつか見つけたので、また次の機会にでも記事にしたいと思います。</p>

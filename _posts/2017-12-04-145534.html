@@ -1,0 +1,41 @@
+---
+date: 2017-12-04 14:55:34
+tags:
+- Electron
+- 旧日記
+- Web
+- プログラミング
+title: 'Electronドキュメントの翻訳 (Crowdinへの移行) : Electron Advent Calendar 2017 day 4'
+type: post
+---
+
+<p>Electronの多言語ドキュメントが最近Crowdinへ移行し、翻訳作業が大変やりやすくなりました。</p>
+<p>ここでは、その経緯と使い方について説明しています。</p>
+<h2>なぜCrowdinに移行したの？</h2>
+<p>もともとは日本語など、英語以外のドキュメントも<a href="https://github.com/electron/electron">electronレポジトリ</a>の中に含まれており、翻訳を行う際にはdocs-translationsを編集してpull requestを送る、という方法で行われていました。</p>
+<p>しかし、この方法には</p>
+<ol>
+<li>ドキュメントがなかなか英語の最新版に追いつかない</li>
+<li>Pull requestの処理が大変</li>
+</ol>
+<p>という問題がありました。</p>
+<p>一点目の「ドキュメントがなかなか英語の最新版に追いつかない」ですが、docs(英語版)のドキュメントが編集され、新しいメソッドの追加やメソッド名の変更があったり、書かれていた方法がDeprecatedになっていても、なかなか翻訳版のほうがそれに追いつかなかったり、またたくさんの言語があるために言語ごとにバラバラの作業で一貫性が保てていないという状態になっていました。</p>
+<p>二点目の「Pull requestの処理が大変」ですが、electronリポジトリには、<a href="https://github.com/electron/electron/pulls">たくさんのPull requestが送られていますが</a>、動作に関わるもの多くなかなか大変そうです。それにもかかわらず、細々したドキュメントの翻訳などのmerge作業も<a href="https://github.com/zcbenz">Cheng Zhaoさん</a>や<a href="https://github.com/zeke">Zekeさん</a>をはじめとしたElectronの開発コアメンバーが行うことになってしまっていました。</p>
+<p>そこで、翻訳の作業の効率化と質の向上のためCrowdinに移行することになりました。</p>
+<p><a href="https://github.com/electron/electron/tree/master/docs-translations">doc-translationsディレクトリ</a>は、<a href="https://github.com/electron/electron/pull/11039">Deprecate /docs-translations #11039</a>をもって削除されて空になっています。</p>
+<h2>Crowdinってなに？</h2>
+<p><a href="https://crowdin.com/">Crowdin</a>はWebから使用できる翻訳プラットフォームです。<strong>Githubとの連携</strong>がとてもしやすく、また<strong>オープンソースソフトウェアの開発には無料</strong>で使用できるという大きなメリットがあります。</p>
+<p>一度翻訳した言葉をドキュメント内で一貫性を保つためにシソーラスを作ったり、機械翻訳を参考にしたり、複数人での作業のために投票機能があったりと、さまざまな機能があります。</p>
+<h2>どうやって使うの？</h2>
+<p>まずは<a href="https://crowdin.com/join">Crowdinのユーザー登録</a>を行います。登録にはGithubやTwitterのアカウントを利用することが出来ます。登録後、<a href="https://crowdin.com/project/electron">Electronドキュメント翻訳のプロジェクト</a>を開きます。</p>
+<p><img class="alignnone size-full wp-image-921" src="http://blog.kcrt.net/files/2017/12/crowdin_electron_home.png" alt="" width="1391" height="853" /></p>
+<p>言語の設定を行っているためJapaneseが一番上にあがっています。翻訳を行う言語をクリックします。</p>
+<p><img class="alignnone size-full wp-image-922" src="http://blog.kcrt.net/files/2017/12/crowdin_electron_files.png" alt="" width="1391" height="853" /></p>
+<p>クリック後は、ドキュメントに含まれるファイルが出てきます。右の青いバーが翻訳率で、こう見ると日本語はほとんど翻訳されていないファイルも多いのが分かります。</p>
+<p>今回は、翻訳が全くされていないinstallation.mdを翻訳することにしてみます。ファイルを開くと下のような画面が表示されます。</p>
+<p><img class="alignnone size-full wp-image-923" src="http://blog.kcrt.net/files/2017/12/crowdin_editing_jp.png" alt="" width="1391" height="853" /></p>
+<p>左側に翻訳文書全体が表示されます。赤がまだ作業を行っておらず未翻訳の部分、黄色が現在編集中の部分、緑が翻訳済みの部分です。</p>
+<p>右側で実際の翻訳作業を行います。場合によっては下の機械翻訳や、過去に翻訳したドキュメントに同じ文章があれば表示されますので、それを参考にします。タグは&lt;0&gt;&lt;/0&gt;といった形で原文の物を引用できます。</p>
+<p>翻訳の都合上、タグの順番が変わったり、括弧の対応が減ったりすると警告が表示されますが、わかりやすい翻訳にするためにあえて文書を構成した場合は気にしなくてかまいません。</p>
+<h2>翻訳されたドキュメントはどこから見るの？</h2>
+<p>翻訳されたドキュメントは、Crowdinからしばらくすると<a href="https://github.com/electron/electron-i18n">electron-i18nリポジトリ</a>に取り込まれ、<a href="https://electronjs.org/docs">Electronのウェブサイト</a>から見ることが出来ます。数日以上かかることもあるので気長に待ちましょう。</p>

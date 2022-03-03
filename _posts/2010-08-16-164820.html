@@ -1,0 +1,58 @@
+---
+date: 2010-08-16 16:48:20
+tags:
+- 旧日記
+- ソフトウェア
+- プログラミング
+title: IS01で右サイドバーの無いアプリを作成する方法
+type: post
+---
+
+<p>発売して結構時間がたってるけど誰も書かないので書いちゃう。</p>
+<p><a rel="attachment wp-att-370" href="http://blog.kcrt.net/?attachment_id=370"><img class="alignnone size-medium wp-image-370" src="http://blog.kcrt.net/wp-content/uploads/is01fullscreen-480x240.png" alt="" width="480" height="240" /></a></p>
+<p>IS01はよくあるAndroid端末と違い、特殊な解像度を持っています。一般のソフトウェアに配慮してか、右側にサイドバーが表示されてその全体を使うことは通常できませんでした。</p>
+<p>今回のサンプルではそれを回避する方法を書いています。</p>
+<pre><span style="color: #ff80ff">package</span> com.example.is01.fullscreen;
+<span style="color: #90ee90">/*</span>
+<span style="color: #90ee90"> * IS01 FullScreen Window Sample</span>
+<span style="color: #90ee90"> *      IS01の邪魔なサイドバーを回避するサンプル</span>
+<span style="color: #90ee90"> *      Programmed by kcrt &lt;kcrt _atmark_ kcrt.net&gt;</span>
+<span style="color: #90ee90"> *          Nanoseconds Hunter "<a href="http://www.kcrt.net/">http://www.kcrt.net/</a>"</span>
+<span style="color: #90ee90"> * $id:$</span>
+<span style="color: #90ee90"> */</span>
+<span style="color: #ff80ff">import</span> android.app.Activity;
+<span style="color: #ff80ff">import</span> android.os.Bundle;
+<span style="color: #ff80ff">import</span> android.util.Log;
+<span style="color: #ff80ff">import</span> java.lang.Class;
+<span style="color: #ff80ff">import</span> java.lang.reflect.Method;
+
+<span style="color: #e0ffff">public</span> <span style="color: #e0ffff">class</span> StartupActivity <span style="color: #e0ffff">extends</span> Activity {
+    <span style="color: #90ee90">/**</span><span style="color: #ffa500"> Called when the activity is first created.</span><span style="color: #90ee90"> */</span>
+    Method setFullScreenMode;
+    <span style="color: #ff80ff">@Override</span>
+    <span style="color: #e0ffff">public</span> <span style="color: #e0ffff">void</span> onCreate(Bundle savedInstanceState) {
+        <span style="color: #e0ffff">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        <span style="color: #ffffe0">try</span>{
+            Class&lt;?&gt; sgManager = Class.forName(<span style="color: #ffa0a0">"jp.co.sharp.android.softguide.SoftGuideManager"</span>);
+            Class&lt;?&gt; paramstype[] = {<span style="color: #e0ffff">boolean</span>.<span style="color: #e0ffff">class</span>};
+            setFullScreenMode = sgManager.getMethod(<span style="color: #ffa0a0">"setFullScreenMode"</span>, paramstype);
+        }<span style="color: #ffffe0">catch</span>(Exception o){
+            Log.d(<span style="color: #ffa0a0">"is01fullscreen"</span>, <span style="color: #ffa0a0">"failed"</span> + o.getMessage() + <span style="color: #ffa0a0">":"</span> + o.getClass().toString());
+        }
+    }
+
+    <span style="color: #ff80ff">@Override</span>
+    <span style="color: #e0ffff">public</span> <span style="color: #e0ffff">void</span> onResume(){
+        <span style="color: #e0ffff">super</span>.onResume();
+        <span style="color: #ffffe0">try</span>{
+            setFullScreenMode.invoke(<span style="color: #ffa0a0">null</span>, <span style="color: #ffa0a0">true</span>);
+        }<span style="color: #ffffe0">catch</span>(Exception o){
+            Log.d(<span style="color: #ffa0a0">"is01fullscreen"</span>, <span style="color: #ffa0a0">"failed"</span>);
+        }
+    }
+}</pre>
+<p>結論からいうと、jp.co.sharp.android.softguide.SoftGuideManager::setFullScreenMode(true)をonResumeで呼び出してあげる事になります。これタイマーで呼び出したりできないのかな。また試してみよう。</p>
+<p>Javaでプログラムを書くのは初めてなのでおかしかったらごめんなさいな。</p>
+<p>あ、あとバージョンアップで潰されたらごめんなさい。</p>
+<p>zipで欲しい人： <a rel="attachment wp-att-371" href="http://blog.kcrt.net/?attachment_id=371">IS01FullScreenSample</a></p>

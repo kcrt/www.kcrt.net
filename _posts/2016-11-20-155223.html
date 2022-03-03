@@ -1,0 +1,73 @@
+---
+date: 2016-11-20 15:52:23
+tags:
+- 旧日記
+- ソフトウェア
+- ハードウェア
+- プログラミング
+title: Pocket C.H.I.P. が届いた
+type: post
+---
+
+<p><!-- wp:gallery {"ids":[1096,1097]} --></p>
+<figure class="wp-block-gallery columns-2 is-cropped">
+<ul class="blocks-gallery-grid" />
+<li class="blocks-gallery-item">
+<figure><img src="https://blog.kcrt.net/files/2020/05/image.gif" alt="" data-id="1096" data-link="https://blog.kcrt.net/2016/11/21/005223/image" class="wp-image-1096" /></figure>
+</li>
+<li class="blocks-gallery-item">
+<figure><img src="/images/2016-11-20_image.png" alt="" data-id="1097" data-link="https://blog.kcrt.net/2016/11/21/005223/image-2" class="wp-image-1097" /></figure>
+</li>
+</figure>
+<p><!-- /wp:gallery --></p>
+<p><a href="https://getchip.com/pages/pocketchip">Pocket C.H.I.P.</a>が届きました。2016年5月に申し込みをしているので、実に半年かかったことになります。(当時はまだ49$でした)</p>
+<p><img class="alignnone wp-image-887" src="http://blog.kcrt.net/files/2016/11/IMG_1998.jpg" alt="プチプチに包まれたPocket C.H.I.P." width="285" height="388" /></p>
+<p>こんな感じのプチプチに包まれて香港からやってきました。</p>
+<p><img class="alignnone wp-image-889" src="http://blog.kcrt.net/files/2016/11/IMG_1999.jpg" alt="C.H.I.P.とPocket C.H.I.P." width="333" height="250" /></p>
+<p>Pocket C.H.I.P.にあわせて、C.H.I.P.とHDMI DIPを購入。こちらもおいおい触って行きたいです。</p>
+<p><img class="alignnone size-full wp-image-890" src="http://blog.kcrt.net/files/2016/11/IMG_2006.jpg" alt="Pocket C.H.I.P." width="4032" height="3024" /></p>
+<p>なかには、こんな感じで本体が入っています。</p>
+<p><img class="alignnone size-full wp-image-891" src="http://blog.kcrt.net/files/2016/11/IMG_2009.jpg" alt="チュートリアル" width="4032" height="3024" /></p>
+<p>起動するとチュートリアル画面に。</p>
+<p><img class="alignnone size-full wp-image-892" src="http://blog.kcrt.net/files/2016/11/IMG_2014.jpg" alt="img_2014" width="2641" height="3024" /></p>
+<p>メニューにはないですが、ターミナルから<code>surf "http://www.yahoo.co.jp"</code>とするとブラウザも起動できます。Ctrl+Gで任意のアドレスに移動、Ctrl+-で縮小などのショートカットキーも使用可能。</p>
+<p>追記: Ctrl+H/L - 戻る/進む, Ctrl+O - ソースコードに切り替え, CTRL+Q - 終了</p>
+<p><img class="alignnone size-full wp-image-893" src="http://blog.kcrt.net/files/2016/11/IMG_2023.gif" alt="img_2023" width="500" height="375" /></p>
+<p><code>apt-get install</code>すれば、みんなの大好きな<code>sl</code>だって<code>nethack</code>だって使用可能。</p>
+<p>これはなかなか面白いものを手に入れました。</p>
+<h3>困った点</h3>
+<ul>
+<li>"-"キーがzshでだけ効かない → .Xmodmapで<code>KP_Substract</code>となっているところを<code>minus</code>にすればよい</li>
+<li>Pocket C.H.I.P.のfirmware?というか、flashメモリのアップデートしたい → 本体からC.H.I.P.をわざわざ外さずとも、上部にある"FEL"と"GROUND"をクリップかなんかで短絡させて、そのままChromeで<a href="http://flash.getchip.com/">C.H.I.P. Flasherを起動</a>したPCに接続すれば良い(らくちん)</li>
+<li>日本語表示されない
+<ul>
+<li>sudo apt-get install locales⏎</li>
+<li>sudo dpkg-reconfigure locales(日本語選ぶ)⏎</li>
+<li>sudo apt-get install fonts-ipafont⏎</li>
+</ul>
+</li>
+<li>bluetoothどこで設定するかわかんない
+<ul>
+<li>C.H.I.P.と違ってPocket C.H.I.P.はGUIで設定できないので<code>bluetoothctl</code>あたりを駆使する。</li>
+</ul>
+</li>
+<li>うまいことタップできない
+<ul>
+<li>上のほうはなんだかタップしにくいので</li>
+<li><code>sudo apt-get install xinput-calubrator⏎</code></li>
+<li><code>xinput_calibrator⏎</code></li>
+<li>これでうまいこと調整する</li>
+<li>もしくはせっかくUSB付いているのでマウス繋げると楽チン</li>
+</ul>
+</li>
+<li>sudoしたいけどパスワードわかんない
+<ul>
+<li>ID: chip / PASS: chip か、ID: root / PASS: chipだよ</li>
+</ul>
+</li>
+<li>追記
+<ul>
+<li>Ctrl + Tab で起動中のアプリ切り替え</li>
+</ul>
+</li>
+</ul>

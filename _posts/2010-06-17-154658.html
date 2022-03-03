@@ -1,0 +1,15 @@
+---
+date: 2010-06-17 15:46:58
+tags:
+- 旧日記
+- ソフトウェア
+title: crontab temp file must be edited in place
+type: post
+---
+
+<pre>% crontab -e</pre>
+<pre>crontab: temp file must be edited in place</pre>
+<div>Snow Leopardでcrontabを編集するとこうなった。<a href="http://d.hatena.ne.jp/yuyarin/20100225/1267084794">Mac OS X で cron を使う(EDITOR=vim)</a>を参考にするところによるとset writebackupが原因の様子。保存するときに、別名で保存→元ファイルを削除→保存ファイルを元ファイルの位置へ、としているためi-nodeが変わるのが原因の様子。</div>
+<div>元サイトの対処方法でも良さそうだけど、crontabだけ特別扱いして上げたかったので.vimrcに</div>
+<pre>autocmd BufRead /tmp/crontab.* :set nobackup nowritebackup</pre>
+<div>で対処。</div>

@@ -1,0 +1,57 @@
+---
+date: 2013-08-08 09:06:22
+tags:
+- git
+- 旧日記
+- ソフトウェア
+- プログラミング
+title: gitのお気に入りコマンドなど
+type: post
+---
+
+<p>お気に入りのgitの設定およびコマンドです。</p>
+<h3>git status -sb</h3>
+<pre>[alias]
+st = status -sb</pre>
+<p>と登録しておくのがお勧めです。git status --short --branchの省略形です。</p>
+<p>通常の場合、</p>
+<pre>$ git status</pre>
+<p>を実行すると、</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitstatus.png"><img class="alignnone  wp-image-599" alt="gitstatus" src="http://blog.kcrt.net/files/2013/08/gitstatus-1024x665.png" width="614" height="399" /></a></p>
+<p>と、本来必要である情報以上にたくさんのメッセージが表示されます。もちろん、なれないうちは大変助かるメッセージではありますが、慣れてくると冗長すぎてむしろ見通しの悪さを感じてきます。</p>
+<pre>$ git status -sb</pre>
+<p>では、</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitstatussb.png"><img alt="gitstatussb" src="http://blog.kcrt.net/files/2013/08/gitstatussb-1024x665.png" width="614" height="399" /></a></p>
+<p>と、本来必要な情報を簡潔に表示してくれます。</p>
+<p>git 1.8.4以上をお使いならば<a href="https://github.com/git/git/blob/master/Documentation/RelNotes/1.8.4.txt#L185-L187">Gitの更新ログ</a>にあるようにstatus.shortとstatus.branchというconfigがありますのでそちらを利用するのもお勧めです。</p>
+<h3>pager = less -r</h3>
+<p>(参考: <a href="http://d.hatena.ne.jp/xr0038/20130126/1359181151">どせいけいさんき</a>より)</p>
+<p>git diffなどの結果は、core.pagerで設定したコマンドに送られます。現在の設定が不明な場合は</p>
+<pre>$ git config --get core.pager</pre>
+<p>で調べることができます。おそらく、設定していない場合はlessが標準のページャとして使用されていると思います。</p>
+<p>標準のlessは長い行を折り返してくれないので、</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitless.png"><img class="alignnone  wp-image-596" alt="gitless" src="http://blog.kcrt.net/files/2013/08/gitless-1024x665.png" width="614" height="399" /></a></p>
+<p>こんなかんじで、長い文は右側にはみ出してしまって見通しが悪いです。</p>
+<p>.gitconfigに</p>
+<pre>[core]
+pager = less -r</pre>
+<p>と設定することで、</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitlessr.png"><img class="alignnone  wp-image-597" alt="gitlessr" src="http://blog.kcrt.net/files/2013/08/gitlessr-1024x665.png" width="614" height="399" /></a></p>
+<p>長い行は自動的に折り返してくれるので見通しが良くなります。</p>
+<h3>git diff --word-diff</h3>
+<p>長い行も一度に表示できるようになって少し見通しが良くなったとはいえ、上記のdiffでは結局どこが変わったのか調べるのはかなり大変です。</p>
+<pre>$ git diff --word-diff</pre>
+<p>を使うと</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/worddiff.png"><img class="alignnone  wp-image-598" alt="gitworddiff" src="http://blog.kcrt.net/files/2013/08/worddiff-1024x541.png" width="614" height="325" /></a></p>
+<p>変更になった部分だけをハイライトして表示してくれます。知っていると便利なコマンドです。</p>
+<h3>git commit -v</h3>
+<p>コミットログの記載画面にコミット内容を表示することができます。</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitcommitv.png"><img class="alignnone  wp-image-602" alt="gitcommitv" src="http://blog.kcrt.net/files/2013/08/gitcommitv-1024x947.png" width="614" height="568" /></a></p>
+<p>こんな感じでコミットログ記載部分の下部に今回のコミットではどの部分が変更されたかが表示されます。</p>
+<h3>git log --graph</h3>
+<p>僕のおすすめは</p>
+<pre>$ git log --graph --date=short --pretty=format:'%Cgreen%h %cd %Cblue%cn %Creset%s'</pre>
+<p>です。</p>
+<p><a href="http://blog.kcrt.net/files/2013/08/gitloggraph1.png"><img class="alignnone size-full wp-image-633" alt="gitloggraph" src="http://blog.kcrt.net/files/2013/08/gitloggraph1.png" width="559" height="315" /></a></p>
+<p>こんなかんじで履歴をコンソール上でグラフィカルに表示してくれます。いろいろ設定オプションがありますが僕は上記を使っています。</p>
+<p>もちろん、vim上で<a href="https://github.com/gregsexton/gitv">gregsexton/gitv</a>を使うという手もあります。</p>

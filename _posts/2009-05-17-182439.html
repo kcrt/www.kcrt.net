@@ -1,0 +1,110 @@
+---
+date: 2009-05-17 18:24:39
+tags:
+- 旧日記
+- ソフトウェア
+- プログラミング
+title: くだらないUnix技まとめ
+type: post
+---
+
+<p><a href="http://slashdot.jp/askslashdot/article.pl?sid=08/11/07/0353215">（便利で）くだらないUnix技は？</a><span class="commentBoxLinks"><span>のまとめです。</span></span></p>
+<p>元スレそのままだと、見にくいのと、どういう結果が起こるのか分かりにくいのと、実行すると危ないコマンドがあるのでまとめてみました。全部羅列している訳じゃないので全部読みたい人は元スレをば。</p>
+<ul>
+<li>eject - CD-ROMドライブなどを開いたり閉じたりする</li>
+<li>type - コマンドの種類の説明を表示する
+<ul>
+<li>type ls すると ls is an alias for ls -F --color=tty</li>
+<li>type echo すると echo is a shell builtin</li>
+<li>type makeすると make is /usr/bin/make</li>
+</ul>
+</li>
+<li>look - 指定した文字列で始まる行を表示
+<ul>
+<li>look nano とすると nanograms, nanomelus, nanometer...といった単語が出てくる。</li>
+</ul>
+</li>
+<li>init 0 - システムを停止させる</li>
+<li>echo ^O - バイナリファイルを表示したりしておかしくなった画面を直す
+<ul>
+<li>^OはCtrl+V Ctrl+Oで入力できる</li>
+<li># ぼくはresetコマンドをよく使います。</li>
+</ul>
+</li>
+<li>echo ^G - ベルを鳴らす
+<ul>
+<li>^Gの入力方法は、Ctrl+V Ctrl+Gと入力する</li>
+</ul>
+</li>
+<li>sudo beep -f 500 -l 100 ; sleep 0.9s ; sudo beep -f 500 -l 100 ; sleep 0.9s ; sudo beep -f 500 -l 100 ; sleep 0.9s ; sudo beep -f 1000 -l 2000
+<ul>
+<li>ごめんなさい、CentOSなので試せませんでした。</li>
+<li>試せた人、連絡ください。</li>
+</ul>
+</li>
+<li>echo 'C16P16P4.C16P16P4.C16P16P4.&gt;C2' &gt;/dev/speaker
+<ul>
+<li>これも試せませんでした。</li>
+</ul>
+<p>ping hogehoge | sed -e 's/bytes from/^Gbytes from/'</p>
+<ul>
+<li>pingで繋がっていたら音を出す</li>
+<li># 同じことが引数で出来た気がするけど記憶違いかな？</li>
+</ul>
+</li>
+<li>bc - 電卓ソフト</li>
+<li>dc - RPN形式の計算ソフト
+<ul>
+<li>2 3 + 4 *とか・・・。pで印字。</li>
+</ul>
+</li>
+<li>tail -f ファイル名 - 追っかけ表示</li>
+<li>echo $[2#1111+1]</li>
+<li>cal - カレンダー表示</li>
+<li>grep -<em>数字</em> - <em>数字</em>行だけ前後も表示</li>
+<li>diff --side-by-side - diffの2カラム表示
+<ul>
+<li># 僕はvimdiffが好きです。</li>
+</ul>
+</li>
+<li>find - ファイル検索
+<ul>
+<li>たくさんあるんで割愛</li>
+</ul>
+</li>
+<li>^Z, jobs, fg, bg - コマンドのサスペンド、一覧、フォアグラウンド実行、バックグラウンド実行</li>
+<li>cd - 前回のディレクトリへ移動</li>
+<li>!! - 直前のコマンドを実行
+<ul>
+<li>タブで展開できます</li>
+</ul>
+</li>
+<li>cat /dev/urandom &gt; /dev/dsp
+<ul>
+<li>実行してません。ホワイトノイズ再生だと。</li>
+<li>自己責任で。</li>
+</ul>
+</li>
+<li>man ascii - アスキーコード表</li>
+<li>man console_codes - エスケープシーケンス一覧</li>
+<li>sl - 入ってない方は<a href="http://ja.wikipedia.org/wiki/Sl_%28UNIX%29">Wikipediaのsl</a>を参照。</li>
+<li>banner - 文字を大きく表示
+<ul>
+<li>CentOSに入ってなかったので試してません。</li>
+</ul>
+</li>
+<li>aptitude moo</li>
+<li>aptitude -v moo</li>
+<li>aptitude -vv moo</li>
+<li>以下略
+<ul>
+<li>Debian/Ubuntuの方はどうぞご自身でお試しください。</li>
+</ul>
+</li>
+<li>yes 永遠に'y'(または指定した文字)を表示
+<ul>
+<li>yes | yum install みたいに使えます。</li>
+</ul>
+</li>
+<li>seq 数値 - 数列の印字</li>
+</ul>

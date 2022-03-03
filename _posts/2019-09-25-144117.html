@@ -1,0 +1,73 @@
+---
+date: 2019-09-25 14:41:17
+tags:
+- 旧日記
+- Programmer's Pocket Reference
+- 未分類
+title: Universal Serial Bus (USB)
+type: post
+---
+
+<p><!-- wp:paragraph {"align":"center"} --></p>
+<p class="has-text-align-center">この記事は、 <a href="https://www.kcrt.net/ppr">Programmer's Pocket Reference</a> から内容を抜粋して再度編集したものです。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>概要</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>USBはコンピューターに簡単に、そして様々な機器を接続できるようにするために作られた規格である。最新のUSB 3.2 + USB PDでは、20Gbps ・20V 5A(100W)にまで対応している。互換性が保たれており、USB 1.0 のキーボードはUSB 3.2対応のポートでも問題なく使用することができる。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>詳細 </h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>現在接続されている機器の詳細を調べたい時</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Windows</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>Microsoftによって公開されている<a href="https://github.com/Microsoft/Windows-driver-samples/tree/master/usb/usbview">USBView</a>が便利である。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>macOS</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>$ ioreg -p IOUSB -l -w 0<br />$ system_profiler SPUSBDataType</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Ubuntu</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>$ lsusb -v    # see bDeviceClass</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>デバイスクラス</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>機器の機能を識別するためにデバイスクラスが使用される。よく使われるデバイスクラスはOSによりサポートされており、標準ドライバが準備されている。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>コネクタとケーブル</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>USB 3.0ではMini端子はdeprecatedとなり、端子を増やしてSuperSpeedに対応したA/B端子と横長のMicro B(SS)端子が登場した。2014.08にはUSB Type-Cが規格制定され、今後主流になっていく。USB延長 ケーブル(Cオス-Cメス)や、USB Aオス-USB Type-Cメスなどは市販はされているが、規格上禁止されているものであり注意が必要である。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>Battery Charge</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>USBでは、標準では5V 500mA(USB 2.0)まで給電が可能であった。USB BC 1.2では5V 1.5Aまでの給電に対応している。その他、同様の目的のものに Quick Charge (Qualcomm)があるが、こちらは標準規格ではない。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":4} --></p>
+<h4>USB 3.0/3.1/3.2</h4>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>現在は、USB3.0/3.1は USB 3.2 Gen nxn (下表参照)という名称になっている。Enhanced SuperSpeedという用語が使われることがあるが、こちらは旧USB 3.0の SuperSpeed(Gen1x1) と、旧3.1以降の SuperSpeedPlusの両方を合わせたものである。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1063,"sizeSlug":"large"} --></p>
+<figure class="wp-block-image size-large"><img src="/images/2019-09-25_PPR_USB.png" alt="" class="wp-image-1063" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:file {"id":1060,"href":"https://blog.kcrt.net/files/2019/09/PPR_USB.pdf"} --></p>
+<div class="wp-block-file"><a href="https://blog.kcrt.net/files/2019/09/PPR_USB.pdf">Programmer's Pocket Reference - Universal Serial Bus (USB).pdf</a><a href="https://blog.kcrt.net/files/2019/09/PPR_USB.pdf" class="wp-block-file__button" download>ダウンロード</a></div>
+<p><!-- /wp:file --></p>

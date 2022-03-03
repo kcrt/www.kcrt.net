@@ -1,0 +1,63 @@
+---
+date: 2007-08-04 00:31:37
+tags:
+- 旧日記
+- プログラミング
+title: screenrc
+type: post
+---
+
+<h2>注意</h2>
+<p><strong>この記事はobsoleteです。あたらしいscreenrcが<a href="http://blog.kcrt.net/2013/08/02/115121">僕がMacBookで必ず使う43のソフトウェア達</a>にありますのでそちらをご参照ください。</strong></p>
+<p>&nbsp;</p>
+<p>最後、短いけど。</p>
+<h4>.screenrc</h4>
+<p>&nbsp;</p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+</pre>
+<p><span style="color: #a0ffa0;"># kcrt</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">multiuser</span><span style="color: #ffa0a0;">on</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">startup_message</span><span style="color: #ffa0a0;">off</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">vbell</span><span style="color: #ffa0a0;">off</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">shell</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> zsh
+backtick</pre>
+<p><span style="color: #ffa0a0;">0</span><span style="color: #ffa0a0;">5</span><span style="color: #ffa0a0;">60</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> /bin/sh -c</pre>
+<p><span style="color: #ffa0a0;">"test '</span><span style="color: #40ffff;">$MAIL</span><span style="color: #ffa0a0;">' &amp;&amp;test -s </span><span style="color: #40ffff;">$MAIL</span><span style="color: #ffa0a0;"> &amp;&amp; echo -n ' MAIL'"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+backtick</pre>
+<p><span style="color: #ffa0a0;">1</span><span style="color: #ffa0a0;">5</span><span style="color: #ffa0a0;">60</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> $HOME/etc/script/cpuload.sh
+</pre>
+<p><span style="color: #ffffa0;">hardstatus</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> alwayslastline</pre>
+<p><span style="color: #ffa0a0;">"%{wb}%{Wg} [%H] %{-}%0` %-w%{+bs .Wb}¥¥%{+u} %n %t %?(%u)%?%{-}/%{-}%+w %=%{WB} %1` : %m/%d %A %C"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">caption</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> splitonly
+bell</pre>
+<p><span style="color: #ffa0a0;">"^G Beep!! in %"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">defscrollback</span><span style="color: #ffa0a0;">3000</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p><span style="color: #ffffa0;">altscreen</span><span style="color: #ffa0a0;">on</span><span style="color: #a0ffa0;"># 画面復帰を有効に(vim終了時などに画面を戻す)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+</pre>
+<p><span style="color: #a0ffa0;"># キー設定</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+</pre>
+<p>&nbsp;</p>

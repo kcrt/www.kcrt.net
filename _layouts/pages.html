@@ -42,6 +42,12 @@
 				<a class="navbar-item" href="/">
 					Computing
 				</a>
+				<a class="navbar-item" href="/allposts">
+					Posts
+				</a>
+				<a class="navbar-item" href="/tags">
+					Tags
+				</a>
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a class="navbar-link">
 						More
@@ -71,6 +77,14 @@
 			<h2 class="title">
 				{{page.title}}
 			</h2>
+			<h2 class="subtitle">
+				{{page.date | date: "%Y-%m-%d %H:%M:%S"}} by kcrt
+			</h2>
+			<div class="tags">
+				{% for tag in page.tags %}
+				<a href="/tags#{{tag}}" class="tag is-primary is-link">{{tag}}</a>
+				{% endfor %}
+			</div>
 			<div class="content">
 				{{content}}
 			</div>

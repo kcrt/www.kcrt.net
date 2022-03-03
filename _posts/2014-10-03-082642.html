@@ -1,0 +1,270 @@
+---
+date: 2014-10-03 08:26:42
+tags:
+- data
+- disk
+- hardware
+- recovery
+- software
+- 旧日記
+- ソフトウェア
+- ハードウェア
+title: ディスクの故障とデータのサルベージ
+type: post
+---
+
+<p>ディスクの故障、ある日突然やってきます。残念ですが、<strong>ハードディスクは消耗品</strong>であり、ある日突然データが読めなくなっても不思議ではありません。現在普及しているUSBメモリ・SDカード・SSDも物理的には安定とはいえ、何らかのトラブルが起これば読み込みができなくなることも多々あります。</p>
+<p>自分がトラブルに陥った時に、たいへん助かったツールをご紹介いたします。</p>
+<h2>まずはじめに・・・</h2>
+<p>あなたがこのサイトを、Googleで探し当てたということは、おそらくデータのバックアップを取っていなかったということを意味するのだと思います。</p>
+<p>今回を契機に、適切なバックアップ環境の構築をおすすめします。データの復旧は、バックアップの何倍もコストが掛かり、時間を浪費し、また確実にデータが戻ってくるとは限りません。</p>
+<h2>データ復旧専門の会社</h2>
+<p>復旧には手間も時間もかかります。もし自信がなければ、お金がかかりますがデータ復旧専門の会社、たとえば<a href="http://www.ino-inc.com/">日本データテクノロジー</a>さんなどの専門会社さんへ依頼するのがお勧めです。</p>
+<p style="text-align: center;"><strong><span style="color: #ff0000;">注意: 以後のソフトウェアはプロフェッショナル向けです。使い方を間違えると、復旧できるはずだったデータが戻らなくなるだけではなく、現在確保できているデータさえ失う可能性があります。</span></strong></p>
+<h2>GNU ddrescue</h2>
+<p>辛うじてデータが読み込みできているディスクに頻繁にアクセスを行うと、それだけでディスクに負担をかけてしまうことになります。まずはディスクをイメージとして確保しましょう。</p>
+<p>古典的にはddコマンドが使用されてきましたが、より便利なコマンドである<a href="http://www.gnu.org/software/ddrescue/ddrescue.html"><strong>GNU ddrescue</strong></a>をおすすめします。</p>
+<p>ddコマンドは、データを前から読み込みをします。データの不良領域がなければそれでも構わないですが、不良領域があればその読み取りに時間をかけてしまい、その領域以降のデータの読み込みが遅々として進みません。それにより、ディスクに負担をかけてしまい、不良領域以外の読み取れるはずだったデータに影響が出る可能性もあります。</p>
+<p>GNU ddrescueは、その点少し賢いコマンドです。読み込めるところだけ読み込んでしまい、その後不良領域の読み込みをtryする、試行回数は3回まで…なんて使い方ができます。</p>
+<p>もちろん、基本はddコマンドなので、<strong>救出しようとしている領域より大きいデータ保存領域</strong>が必要です。イメージから抜き出したデータを保存するためにも、救出するデータの2倍の領域を確保しておくのをおすすめします。たとえば、20GBのパーティションのデータを保存するなら40GBが、200GBなら400GBの領域を用意しておきましょう。</p>
+<p>また、このコマンドを使用するには最低限システムからディスクが認識できる状態にする必要があります。起動できなくなったノートパソコンのハードディスクからデータを取り出す場合などは、SystemRescueCdなどから起動してディスクが見える状態にするか、SATAのHDDをUSBで接続できるケーブル(amazonで「SATA USB HDD」といったキーワードで検索すればたくさん出てきます。たとえば[amazon text=これ&amp;asin=B00507TETG]とか。)を使用することになります。</p>
+<h3>インストール</h3>
+<pre>Ubuntu: <strong><em>sudo aptitude install gddrescue</em></strong>
+Mac(Homebrew): <strong><em>brew install ddrescue</em></strong></pre>
+<p>Windowsの方は、<a href="https://www.cygwin.com/">Cygwin</a>ベースのものを使用することができます。もしくは、<a href="http://www.sysresccd.org/SystemRescueCd_Homepage">SystemRescueCd</a>を作っておくのが、簡単で便利です。</p>
+<h3>デバイス名の確認</h3>
+<p>ddrescueを使うために、デバイス名の確認をしましょう。</p>
+<h4>Mac</h4>
+<p>Macにも<code>fdisk</code>はありますが、残念ながらデバイス名の確認には使えません。マウントできている場合は<code>df -h</code>で確認できますが、トラブルが起こっているディスクがマウントできるとは限りません。</p>
+<p>付属のディスクユーティリティを使うことでデバイス名を調べることができます。</p>
+<p>FATなどの管理領域が壊れてしまっているディスクの場合、接続すると読み取りができないというメッセージが出ます。「無視」をクリックして下さい。</p>
+<p><a href="http://blog.kcrt.net/files/2014/10/diskunavailable.png"><img class="alignnone size-full wp-image-700" src="http://blog.kcrt.net/files/2014/10/diskunavailable.png" alt="diskunavailable" width="556" height="272" /></a></p>
+<p>ディスクユーティリティを起動すると左のリストにディスクが表示されますので、対象のディスク(またはパーティション)を選択して、「情報」を押して下さい。</p>
+<p><a href="http://blog.kcrt.net/files/2014/10/diskdevname1.png"><img class="alignnone size-full wp-image-696" src="http://blog.kcrt.net/files/2014/10/diskdevname1.png" alt="diskdevname1" width="898" height="726" /></a></p>
+<p>「情報」を押すと、ディスク識別子が表示されます。下図では「disk3」となっており、デバイス名としては「<code><strong>/dev/disk3</strong></code>」を使用していくことになります。</p>
+<p><a href="http://blog.kcrt.net/files/2014/10/diskdevname2.png"><img class="alignnone size-full wp-image-697" src="http://blog.kcrt.net/files/2014/10/diskdevname2.png" alt="diskdevname2" width="783" height="616" /></a></p>
+<h4>Ubuntu</h4>
+<p>Ubuntuの場合、<code>sudo fdisk -l</code>でデバイス名の確認ができます。</p>
+<pre>% <strong><em>sudo fdisk -l</em></strong>
+
+Disk <span style="color: #ff0000;">/dev/sda</span>: 107.4 GB, 107374182400 bytes
+255 heads, 63 sectors/track, 13054 cylinders, total 209715200 sectors
+Units = sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x0002e77e
+
+   Device Boot      Start         End      Blocks   Id  System
+<span style="color: #ff0000;">/dev/sda1</span>   *        2048   203720703   101859328   83  Linux
+/dev/sda2       203722750   209713151     2995201    5  Extended
+/dev/sda5       203722752   209713151     2995200   82  Linux swap / Solaris
+</pre>
+<p>ディスクのサイズなどを参考に、どのデバイス名が割り当てられているかを確認して作業を進めていきます。</p>
+<h3>データの取り出し</h3>
+<p>デバイス名も確認できたことですし、データをイメージとして確保しましょう。それではまずは初回の読み込みを行います。</p>
+<pre>% <em><strong>sudo ddrescue --no-split /dev/disk3 disk3.img disk3.log</strong></em>
+<span style="color: #999999;">(ddrescue --no-split <strong>デバイス名</strong> <strong>書き出し先</strong> </span><strong><span style="color: #999999;">ログファイル</span></strong><span style="color: #999999;">)</span>
+
+GNU ddrescue 1.18.1
+Press Ctrl-C to interrupt
+rescued:    51707 kB,  errsize:       0 B,  current rate:    6422 kB/s
+   ipos:    51707 kB,   errors:       0,    average rate:    5745 kB/s
+   opos:    51707 kB, run time:       9 s,  successful read:       0 s ago
+Copying non-tried blocks... Pass 1 (forwards)
+</pre>
+<p>デバイス名には、先ほど調べたものを指定します。これが間違っていると、時間をかけてデータを取り出しても全く意味が無いことになります。注意して指定しましょう。</p>
+<p>書き出し先の名前は何でも良いですが、必ず充分な空き容量があるデバイスを指定するようにして下さい。Macの場合、拡張子を.imgにすれば修復後にディスクユーティリティからマウントでき、大変便利です。</p>
+<p>ログファイルの指定は大切です。この中にはディスクのどのブロックを読み込めたか、どのブロックは読み込みに失敗したかなどの情報が入っています。</p>
+<p>初回の読み込みには、<code>--no-split</code> (または<code>-n</code>)を指定することをおすすめします。このオプションを指定することで、読み込みに時間がかかる場所をスキップすることができます。</p>
+<p>うまく読み込めた場合は、とりあえずここで終了です。エラーがあり全てのブロックが読み込めていない場合は読み込み直しを行いましょう。</p>
+<pre>% <strong><em>ddrescue --direct -r3 /dev/disk3 disk3.img disk3.log</em></strong></pre>
+<p>ログファイルにどのブロックが読み込めているかの情報が入っているので、もう一度実行すると先ほど読み込めなかった部分をトライできます。</p>
+<p><code>--direct</code>(または-d)オプションを指定すると、カーネルのキャッシュを使用せずにアクセスできます。</p>
+<p><code>-r</code>オプション(--retry-passesまたは--max-retries)で、何度試行を行うかを指定できます。</p>
+<p>ディスクイメージ(またはパーティション)が取得できたら次の段階に進みましょう。</p>
+<h2>TestDisk</h2>
+<p>イメージが取得できたら修復を行います。可能ならこの時点での取得したイメージをバックアップしておくことをおすすめします。</p>
+<p>もっとも簡単なのは、取得したイメージを別のハードディスクに書き込むもしくはループデバイスとしてマウントしてから、fsckを走らせるという方法です。これで改善されればいいですが、fsckで修復できる範囲はそれほど広くありませんし、そもそもパーティションが認識されていなければ太刀打ちできません。</p>
+<p>今回はオープンソースソフトウェアの<a href="http://www.cgsecurity.org/wiki/TestDisk">TestDisk</a>を紹介します。</p>
+<h3>インストール</h3>
+<pre>Ubuntu: <strong><em>sudo aptitude install testdisk</em></strong>
+Mac(Homebrew): <strong><em>brew install testdisk</em></strong></pre>
+<p>Windowsの方は、<a href="http://www.cgsecurity.org/wiki/TestDisk_Download">公式サイトからバイナリを取得</a>することができます。</p>
+<h3>修復の実行</h3>
+<pre>% <strong><em>testdisk disk3.img</em></strong></pre>
+<p>先ほど取得したイメージを引数にして起動します。すると次のような画面が開かれます。</p>
+<pre>TestDisk 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+  TestDisk is free software, and
+comes with ABSOLUTELY NO WARRANTY.
+
+Select a media (use Arrow keys, then press Enter):
+>Disk disk3.img - 2004 MB / 1912 MiB
+
+
+
+>[Proceed ]  [  Quit  ]
+
+Note: Some disks won't appear unless you are root user.
+Disk capacity must be correctly detected for a successful recovery.
+If a disk listed above has incorrect size, check HD jumper settings, BIOS
+detection, and install the latest OS patches and disk drivers.
+</pre>
+<p>ファイルに間違いがないことを確認してProceedを選択しましょう。この画面で(RO)と表示されているまたは、「書き込みができない」という内容のエラーが出た場合は、取得したイメージファイルのユーザーまたは書き込み権限をチェックして下さい。(おそらく、sudoで作業してrootの所有のままになっているのです。)</p>
+<p>次の画面では、パーティションテーブルの種類を選ぶように指示されます。</p>
+<pre>TestDisk 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+
+Disk disk3.img - 2004 MB / 1912 MiB
+
+Please select the partition table type, press Enter when done.
+ [Intel  ] Intel/PC partition
+>[EFI GPT] EFI GPT partition map (Mac i386, some x86_64...)
+ [Humax  ] Humax partition table
+ [Mac    ] Apple partition map
+ [None   ] Non partitioned media
+ [Sun    ] Sun Solaris partition
+ [XBox   ] XBox partition
+ [Return ] Return to disk selection
+
+Note: Do NOT select 'None' for media with only a single partition. It's very
+rare for a drive to be 'Non-partitioned'.</pre>
+<p>Intel/PC partition(MBR)を使用しているか、EFI GPT(GUIDパーティションテーブル)を使用しているかは場合によりますが、比較的新しいHDD / SSDならEFI GPTであると思います。古いHDDやFAT32でフォーマットされていたUSBメモリの場合Intel/PC(MBR)かも知れません。</p>
+<p>うまく検出された場合は、画面の下部に「<code>Hint: EFI GPT partition table type has been detected.</code>」などと表示されますのでその場合は指示にしたがいましょう。</p>
+<p>次の画面では、Analyse(分析)を選びましょう。</p>
+<pre>&gt;[ Analyse  ] Analyse current partition structure and search for lost partitions
+ [ Advanced ] Filesystem Utils
+ [ Geometry ] Change disk geometry
+ [ Options  ] Modify options
+ [ Quit     ] Return to disk selection
+</pre>
+<p>Analyseを選ぶと、以下のように出てきました。</p>
+<pre>Disk disk3.img - 2004 MB / 1912 MiB - CHS 244 255 63
+Current partition structure:
+     Partition                  Start        End    Size in sectors
+
+Bad GPT partition, invalid signature.
+Trying alternate GPT
+Warning: number of sectors per track mismatches 32 (FAT) != 63 (HD)
+ 1 P MS Data                     2048    3913727    3911680 [USBMEMORY] [USBMEMORY]
+</pre>
+<p>Bad GPT partition, invalid signature. Trying alternate GPTとのことで、どうやらGPT部分が壊れていたが、予備の情報が使用できるようです。今回はラッキーなケースでした。Quick Searchを押して、パーティションを表示します。予備情報もダメになっている場合や、Quick Searchでは全てのパーティションが表示されなければDeep Searchを行って下さい。</p>
+<pre>Disk disk3.img - 2004 MB / 1912 MiB - CHS 244 255 63
+     Partition               Start        End    Size in sectors
+>P MS Data                     2048    3913727    3911680 [USBMEMORY]
+
+Structure: Ok.  Use Up/Down Arrow keys to select partition.
+Use Left/Right Arrow keys to CHANGE partition characteristics:
+                P=Primary  D=Deleted
+Keys A: add partition, L: load backup, T: change type, <strong>P: list files</strong>,
+     Enter: to continue
+FAT32, blocksize=4096, 2002 MB / 1910 MiB
+</pre>
+<p>無事パーティションが見つかれば、この画面でPを押しましょう。</p>
+<pre>   P MS Data                     2048    3913727    3911680 [USBMEMORY]
+Directory /
+
+>-rwxr-xr-x     0     0      4096  3-Oct-2014 15:45 ._.Trashes
+ -rwxr-xr-x     0     0   3839007  3-Oct-2014 15:46 P1050262.JPG
+ drwxr-xr-x     0     0         0  3-Oct-2014 15:45 .Trashes
+ drwxr-xr-x     0     0         0  3-Oct-2014 15:45 .fseventsd
+ drwxr-xr-x     0     0         0  3-Oct-2014 15:45 .Spotlight-V100
+ drwxr-xr-x     0     0         0  3-Oct-2014 15:45 .TemporaryItems
+ -rwxr-xr-x     0     0      4096  3-Oct-2014 15:45 ._.TemporaryItems
+ -rwxr-xr-x     0     0       295  3-Oct-2014 15:45 .apdisk
+ -rwxr-xr-x     0     0      4096  3-Oct-2014 15:45 ._.apdisk
+ -rwxr-xr-x     0     0      4096  3-Oct-2014 15:46 ._P1050262.jpg
+ -rwxr-xr-x     0     0    943074  3-Oct-2014 15:46 IMAG0146.JPG
+ -rwxr-xr-x     0     0      4096  3-Oct-2014 15:46 ._IMAG0146.jpg
+ -rwxr-xr-x     0     0   4716464  3-Oct-2014 15:46 P1050362.JPG
+ -rwxr-xr-x     0     0      4096  3-Oct-2014 15:46 ._P1050362.jpg
+                                                   Next
+Use Right to change directory, h to hide deleted files
+    q to quit, : to select the current file, a to select all files
+    C to copy the selected files, c to copy the current file
+</pre>
+<p>これで、ディスクに含まれていたファイルが表示されました。ファイルを選択してCを押せば、データを取り出すことができます。</p>
+<p>元の画面に戻って、[Write]を押して正しいパーティション情報を書き込めばループデバイスとしてマウントしたり、Macではディスクユーティリティでマウントできます。これで一件落着です。</p>
+<p>パーティション情報が見つからないなど、この方法で修復ができない場合は次のPhotoRecを試すことになります。</p>
+<h2>PhotoRec</h2>
+<p>不幸にしてtestdiskでは修復ができなかった場合は、同時にインストールされるPhotoRecを試してみましましょう。TestDiskはFATなどの管理領域を修復することでディスクのデータをアクセス可能な状態にするものでした。</p>
+<p>PhotoRecは少し違います。ディスク全体を捜査してデータが含まれている領域を探し出します。例えば、JPEGファイルは「0xff, 0xd8, 0xff, 0xe0」・「0xff, 0xd8, 0xff, 0xe1」・「0xff, 0xd8, 0xff, 0xfe」といったデータから始まります。ブロックがそのようなデータから始まっている場合はJPEGファイルとして読み込みをtryして復元を試みます。PhotoRecでは、JPEGだけでなくZip, MS Officeファイル, PDFなど270種類のファイルタイプを認識し、出来る限りデータを復元しようとします。</p>
+<p>ファイルシステムに依存しないので、うまく行けば削除してしまったファイルすら修復することができます。たとえば、デジカメのSDカードの画像を間違って消してしまった場合なども、上から新しい画像を保存してしまう前であれば、高確率でデータを取り戻すことができます。</p>
+<p>ただし、データがディスク上に直線上に並んでいない時(断片化している時)はうまく修復できません。</p>
+<pre>% <strong><em>photorec disk3.img</em></strong></pre>
+<p>で起動すると、TestDiskと同じような画面が出てきます。</p>
+<pre>PhotoRec 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+  PhotoRec is free software, and
+comes with ABSOLUTELY NO WARRANTY.
+
+Select a media (use Arrow keys, then press Enter):
+>Disk disk3.img - 2004 MB / 1912 MiB
+
+
+>[Proceed ]  [  Quit  ]
+
+Note: Some disks won't appear unless you're root user.
+Disk capacity must be correctly detected for a successful recovery.
+If a disk listed above has incorrect size, check HD jumper settings, BIOS
+detection, and install the latest OS patches and disk drivers.
+</pre>
+<p>Proceedを押して進むとパーティションの一覧が出てきます。・・・が、今回のディスクは壊れてしまっているので残念ながらパーティション情報は出てきません。Unknownを選択してディスク全体を捜査することにします。(パーティションが認識されていれば、対象のパーティションを選ぶか、Wholeを選択します。)</p>
+<pre>PhotoRec 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+Disk disk3.img - 2004 MB / 1912 MiB (RO)
+
+     Partition                  Start        End    Size in sectors
+>   P Unknown                  0   0  1   243 190 11    3915776
+
+
+>[ Search ]  [Options ]  [File Opt]  [  Quit  ]
+</pre>
+<p>File Optを押せば、どの種類のファイルを検索するか指定できますが、今回は気にせず標準の設定でSearchを選択します。次の画面ではext2/ext3/ext4か、それ以外のファイルシステム(FAT/NTFS/HFS+など)を選択しましょう。</p>
+<p>保存先のディレクトリを指定して「C」を押すと、ディスクデータの検索が始まります。</p>
+<pre>PhotoRec 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+Disk disk3.img - 2004 MB / 1912 MiB (RO)
+     Partition                  Start        End    Size in sectors
+   P Unknown                  0   0  1   243 190 11    3915776
+
+Pass 1 - Reading sector    1865568/3915776, 33 files found
+Elapsed time 0h00m52s - Estimated time to completion 0h00m57
+apple: 16 recovered
+jpg: 12 recovered
+gz: 4 recovered
+zip: 1 recovered
+</pre>
+<p>ディスクを網羅的に検索するのでかなり時間がかかります。気長に待つことにしましょう。</p>
+<pre>PhotoRec 6.14, Data Recovery Utility, July 2013
+Christophe GRENIER &lt;grenier@cgsecurity.org&gt;
+http://www.cgsecurity.org
+
+Disk disk3.img - 2004 MB / 1912 MiB (RO)
+     Partition                  Start        End    Size in sectors
+   P Unknown                  0   0  1   243 190 11    3915776
+
+384 files saved in /Users/kcrt/tmp/datarecovery/recup_dir directory.
+Recovery completed.
+
+You are welcome to donate to support further development and encouragement
+http://www.cgsecurity.org/wiki/Donation
+
+
+[ Quit ]
+</pre>
+<p>全部で384個のデータが救出されたようです。</p>
+<p><a href="http://blog.kcrt.net/files/2014/10/recovereddata.png"><img class="alignnone size-full wp-image-708" src="http://blog.kcrt.net/files/2014/10/recovereddata.png" alt="recovereddata" width="509" height="405" /></a></p>
+<p>残念ながら、ファイル名とディレクトリ構造は修復されませんし、すべてのファイルが正常に戻るわけではありません。ですが、全く読み込めなかったものがここまで戻ってくるなら上出来だと思います。</p>
+<hr />
+<p>さて、あなたは運良くデータを取り戻すことができたでしょうか。ディスク障害の原因は多岐にわたり、ここであげた方法で全てのデータが戻ってくるわけではありません。くれぐれもこまめなバックアップをおすすめします。</p>

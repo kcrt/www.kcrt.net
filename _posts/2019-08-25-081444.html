@@ -1,0 +1,473 @@
+---
+date: 2019-08-25 08:14:44
+tags:
+- 旧日記
+- ハードウェア
+- 未分類
+title: Arduinoで温度計を作ってみた
+type: post
+---
+
+<p><!-- wp:paragraph --></p>
+<p>Arduinoの登場のおかげで、電子工作の敷居がぐっと下がりました。<br />今回、Arduinoで温度計を作ったので、メモ代わりに経過を記載しておきます。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p><em>注意：</em>この記事では、私が初めて行った電子工作について、困った点・分かり難かった点を備忘録がわりに書いているものです。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>プロトタイプ作り</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>まずは、ブレッドボードとArduino Mini (正確にはその互換品)でプロトタイプを作成します。作成に当たって必要と考えた機能は以下の通りです。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>現在の温度・湿度を表示する機能</li>
+<li>気温の経過をグラフで表示させる機能</li>
+<li>上記を、ボタンで切り替えを行える</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>この機能を実現するために、まず以下の部品を準備しました。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>Arduino Nano または 互換品
+<ul>
+<li>私が使用したのは互換品の「<a href="https://amzn.to/2Pym2cx">keyestudio Nano</a>」899円です。</li>
+<li><a href="https://www.switch-science.com/catalog/2554/">スイッチサイエンス</a>や<a href="http://akizukidenshi.com/catalog/g/gM-09059/">秋月電子</a>から本家のものを購入しても良いです。</li>
+<li>もちろん手元にあるならArduino Unoでも良いと思います。</li>
+</ul>
+</li>
+<li>DHT-11
+<ul>
+<li>温度を測るのに使います。</li>
+<li>モジュール化されている物(抵抗がすでについている物)でも、そのままの物でもかまいません。</li>
+<li><a href="https://amzn.to/2UIRjuu">Amazon</a>で購入(173円)することもできますし、秋月電子(Web, 実店舗)などでも購入することができます。</li>
+</ul>
+</li>
+<li>I2Cで接続するディスプレイ
+<ul>
+<li>3.3V-5Vで動作する物を選ぶと後から便利です。</li>
+<li>Amazonで<a href="https://amzn.to/2L6lrQM">こちら</a>(1個440円)を購入しました。</li>
+</ul>
+</li>
+<li>ブレッドボード・ケーブル・コンデンサ・抵抗・スイッチ</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>これを用いての、ブレッドボードでの組み立てとコードの作成を行いました。<br />(コードは、この記事の最後に記載しています。)</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":998} --></p>
+<figure class="wp-block-image"><img src="/images/2019-08-25_breadboard-1.png" alt="" class="wp-image-998" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":996} --></p>
+<figure class="wp-block-image"><img src="/images/2019-08-25_circuit.png" alt="" class="wp-image-996" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:image {"id":995} --></p>
+<figure class="wp-block-image"><img src="/images/2019-08-25_IMG_1300.jpeg" alt="" class="wp-image-995" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>注意点
+<ul>
+<li>DHT11は、モジュール化している物を使用しないのであれば、シグナルピンを4.7KΩ(推奨)でプルアップします。4つのピンは、左からVCC(3.3-5.5V), シグナル, 未使用, GNDとなっています。</li>
+<li>I2CはNano, UnoではSDA-&gt;A4, SCL-&gt;A5です。 </li>
+<li>2番ピン(モード切替スイッチ)は内部プルアップ(INPUT_PULLUP)を使用しています。</li>
+</ul>
+</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading --></p>
+<h2>プロトタイプの問題点：チャタリングへの対策</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>実際に動かしてみると、温度は出るのですが、なんだかちょっと動きが変です。ボタンを押してみるとうまくモードが切り替えられる時もあれば、そうでもないこともあります。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>原因は<strong><a href="https://ja.wikipedia.org/wiki/チャタリング">チャタリング</a></strong>です。ソフトウェアだけ考えていると気が回らないのがおもしろい点です。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>ボタンを押したときのD2の部分の電圧を測るとこのようになっています。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1001} --></p>
+<figure class="wp-block-image"><img src="/images/2019-08-25_IMG_1301.jpeg" alt="" class="wp-image-1001" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>ボタンを押す前は、内部プルアップ(INPUT_PULLUP)により5Vとなっていますが、ボタンを押すとGNDレベルになった…あとに、また5Vになって、再度GNDレベルになってます。<br />そのため、1度の押下で、2度の割り込みが発生してしまっています。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>ソフトウェアで処理を行って回避することもできますが、今回はコンデンサを配置してハードウェア的に対処してみます。<br />実際に取り付けてみたところ：</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:image {"id":1004} --></p>
+<figure class="wp-block-image"><img src="/images/2019-08-25_IMG_1302.jpeg" alt="" class="wp-image-1004" /></figure>
+<p><!-- /wp:image --></p>
+<p><!-- wp:paragraph --></p>
+<p>急な電圧変化が抑制されており、チャタリングでの反応が抑制されていることが分かります。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>余談ですが、Arduinoの割り込みルーチン内でのチャタリングへのソフトウェアでの対応は、delay関数が使えないこともありやや面倒です。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading --></p>
+<h2>プロトタイプから完成品へ</h2>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:paragraph --></p>
+<p>いちおうこれで使用できるものができました。が、ブレッドボードのままでは少し使うのには不便です。<br />ケースに入れて使用できるようにしましょう。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>手に入りやすく大きさの手頃なケースとして、FRISKのケースを使用することにします。ケースに入れるにはArduino Nanoだとやや難があります。理由は：</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>価格的にややもったいない</li>
+<li>ピンヘッダが邪魔をして、高さ的に収まらない</li>
+<li>Mini USBであり、Micro USBとくらべるとややケーブルの汎用性が下がる</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:paragraph --></p>
+<p>そのため、今回はATMEGA328Pをそのまま使用することにします。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>生のATMEGA328PをArduinoとして使用できるようにしてプログラムを焼きこむのには、<a href="https://www.arduino.cc/en/Tutorial/ArduinoISP">手元にあるArduinoをISPとして使用</a>してもいいのですが、今回は<a href="https://amzn.to/2JjFIAJ">USBasp</a>を使用しました。<br />5V, 8MHzの設定で書き込みを行なった後、<a href="http://www.engbedded.com/fusecalc/">水晶振動子を最終的に使用しなくて良いようfuseを変更します</a>。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>avrdude -p m328p -c usbasp -b 19200 -F -U XXXX(上記のページで得られた値)</code></pre>
+<p><!-- /wp:code --></p>
+<p><!-- wp:paragraph --></p>
+<p>USBaspの使用で困った点として、最初の書き込みはJP3をショートさせて低速モードを使用しないと書き込みができませんでした。なかなかうまくいかず調べたところ、ATMEGA328Pは内部クロック1MHz相当で出荷されるとのことです。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:paragraph --></p>
+<p>秋月電子通商で購入したフリスクケースサイズの基盤に半田付けを行い、USB-microでの給電でどこでも使用できるように致しました。</p>
+<p><!-- /wp:paragraph --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>やってみて思ったこと</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:list --></p>
+<ul>
+<li>コンデンサと抵抗はあらかじめ何種類もを組み合わせている物を買っておくと便利です。電子部品取扱店であれば、言えば奥から出てくると思います。ほかにもスイッチやLEDなど一通りセットになったものもAmazonで購入できます。</li>
+<li>都内の方は秋月電子通商での買い物を行うのが良いと思いますが、私は神奈川なのでサトー電気 横浜店・町田店が便利でした。</li>
+</ul>
+<p><!-- /wp:list --></p>
+<p><!-- wp:heading {"level":3} --></p>
+<h3>ソースコード</h3>
+<p><!-- /wp:heading --></p>
+<p><!-- wp:code --></p>
+<pre class="wp-block-code"><code>#include &lt;SPI.h>
+#include &lt;Wire.h>
+#include &lt;Adafruit_GFX.h>
+#include &lt;Adafruit_SSD1306.h>
+#include &lt;Fonts/FreeSans12pt7b.h>
+#include &lt;Fonts/FreeSans9pt7b.h>
+#include &lt;DHT.h>
+#include &lt;avr/sleep.h>
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 32 // OLED display height, in pixels
+
+const unsigned char startLogo &#91;] PROGMEM = {
+	// 'thermometer, 128x32px, image2cpp
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x10, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2c, 0x30, 
+	0x0e, 0x00, 0x00, 0x0c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26, 0x24, 0x18, 
+	0x04, 0x00, 0x01, 0x88, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x34, 0x64, 0x10, 
+	0x0c, 0x00, 0x01, 0x98, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x24, 0x10, 
+	0x0d, 0xcf, 0x7f, 0xd3, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0xad, 0x10, 
+	0x0d, 0x9c, 0x79, 0x83, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x10, 0x10, 
+	0x1f, 0x18, 0x63, 0x03, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x0f, 0x38, 0x63, 0x01, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x1b, 0x18, 0x63, 0x00, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x19, 0x9e, 0xc3, 0x87, 0xc0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x11, 0x06, 0x41, 0x85, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x0c, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 
+	0x00, 0x0c, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x00, 0x40, 
+	0x00, 0x3f, 0x97, 0x81, 0xf1, 0xb3, 0x7b, 0xe0, 0xfc, 0x6f, 0x3c, 0x1f, 0x9f, 0x8f, 0x86, 0xc0, 
+	0x00, 0x0c, 0x3c, 0xc3, 0x19, 0xeb, 0xba, 0x61, 0x8c, 0x3b, 0xee, 0x18, 0x86, 0x18, 0xc7, 0x80, 
+	0x00, 0x0c, 0x30, 0xc6, 0x18, 0xc3, 0x0c, 0x33, 0x06, 0x31, 0xc6, 0x30, 0xc4, 0x18, 0x66, 0x00, 
+	0x00, 0x0c, 0x30, 0x66, 0x19, 0x83, 0x0c, 0x33, 0x06, 0x60, 0x83, 0x30, 0xc6, 0x30, 0x66, 0x00, 
+	0x00, 0x0c, 0x10, 0x67, 0xf8, 0x83, 0x0c, 0x33, 0x03, 0x30, 0xc2, 0x3f, 0xcc, 0x3f, 0xe6, 0x00, 
+	0x00, 0x0c, 0x30, 0x46, 0x01, 0x83, 0x0c, 0x33, 0x06, 0x20, 0x83, 0x20, 0x06, 0x10, 0x06, 0x00, 
+	0x00, 0x0c, 0x30, 0x66, 0x00, 0x83, 0x0c, 0x33, 0x06, 0x60, 0xc2, 0x30, 0x04, 0x30, 0x06, 0x00, 
+	0x00, 0x0c, 0x30, 0x66, 0x01, 0x83, 0x0c, 0x31, 0x86, 0x31, 0x83, 0x30, 0x06, 0x18, 0x06, 0x00, 
+	0x00, 0x07, 0x10, 0x43, 0xf8, 0x83, 0x0c, 0x31, 0xfc, 0x20, 0xc2, 0x1f, 0xc7, 0x8f, 0xc6, 0x00, 
+	0x00, 0x03, 0x30, 0x60, 0xc1, 0x82, 0x04, 0x10, 0x50, 0x20, 0x82, 0x06, 0x01, 0x06, 0x84, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+};
+const int DHT11_PIN = 5;
+const int MODE_PIN = 2;
+const int HISTORY_SIZE = 30;
+const int TEMP_MIN = 10;
+const int TEMP_MAX = 30;
+
+enum MODES {
+	STARTUP,
+	DISPLAY_SLEEP,
+	CURRENT_TEMP,
+	CURRENT_HUMID,
+	GRAPH_TENSECONDS,
+	GRAPH_MINUTES,
+	GRAPH_HOURS,
+	LOGO,
+	VERSION,
+	MILLIS
+};
+volatile enum MODES mode;
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &amp;Wire);
+DHT dht(DHT11_PIN, DHT11);
+
+class HistoryManager {
+	public:
+		HistoryManager(unsigned int bufferSize, unsigned int passSize, HistoryManager *mother) : appendCount(0) {
+			this->bufferSize = bufferSize;
+			this->buffer = (float *)malloc(sizeof(float) * bufferSize);
+			for (unsigned int i = 0; i &lt; bufferSize; i++)
+				this->buffer&#91;i] = NAN;
+			this->passSize = passSize;
+			this->mother = mother;
+		};
+		~HistoryManager() {
+			free(buffer);
+		};
+
+		int append(float value) {
+
+			if (++this->appendCount == this->passSize &amp;&amp; this->mother) {
+				mother->append(value);
+				this->appendCount = 0;
+			}
+			// avoid using memcpy
+			for (unsigned int i = 0; i &lt; this->bufferSize - 1; i++) {
+				this->buffer&#91;i] = this->buffer&#91;i + 1];
+			}
+			this->buffer&#91;this->bufferSize - 1] = value;
+		}
+		float* getBuffer() {
+			return this->buffer;
+		}
+	private:
+		float *buffer;
+		unsigned int bufferSize;
+		HistoryManager *mother;
+		unsigned int appendCount;
+		unsigned int passSize;
+};
+
+
+class thermometer {
+	public:
+		thermometer() : lastMeasured(0) {
+			this->hoursHist = new HistoryManager(HISTORY_SIZE , 0, (HistoryManager *) NULL);
+			this->minutesHist = new HistoryManager(HISTORY_SIZE, 30, this->hoursHist);  // every two minutes
+			this->tenSecondsHist = new HistoryManager(HISTORY_SIZE, 12, this->minutesHist);
+		}
+		~thermometer() {
+			return;
+		}
+		int setthermometer(DHT* pdht) {
+			this->pdht = pdht;
+		}
+		int measure() {
+			unsigned long currentTime = millis();
+			if (currentTime - this->lastMeasured > 10000 - 10 || this->lastMeasured == 0) {
+				this->lastMeasured = currentTime;
+				this->lastHumidity = this->pdht->readHumidity();
+				this->lastTemperature = this->pdht->readTemperature();
+				if (isnan(this->lastHumidity) || isnan(this->lastTemperature)) {
+					Serial.println(F("thermometer measure error"));
+					delay(1000);
+					return 0;
+				} else {
+					this->tenSecondsHist->append(this->lastTemperature);
+				}
+			} else {
+				return 0; // pass
+			}
+			return 1;
+		}
+		float getHumidity() {
+			return lastHumidity;
+		}
+		float getTemperature() {
+			return lastTemperature;
+		}
+		char* getHumidityStr() {
+			static char buf&#91;8];
+			dtostrf(this->getHumidity(), 0, 1, buf);
+			return buf;
+		}
+		char* getTemperatureStr() {
+			static char buf&#91;8];
+			dtostrf(this->getTemperature(), 0, 1, buf);
+			return buf;
+		}
+		HistoryManager *minutesHist;
+		HistoryManager *hoursHist;
+		HistoryManager *tenSecondsHist;
+	private:
+		DHT* pdht;
+		unsigned long lastMeasured;
+		float lastHumidity;
+		float lastTemperature;
+} thermometer;
+
+void modeButton_Push() {
+	if (mode == MILLIS) {
+		mode = DISPLAY_SLEEP;
+	} else {
+		mode = (MODES)(mode + 1);
+	}
+}
+
+void setup() {
+	Serial.begin(9600);
+	set_sleep_mode(SLEEP_MODE_IDLE);
+
+	if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3C for 128x32
+		Serial.println(F("SSD1306 allocation failed"));
+		for (;;);
+	}
+	delay(1000);
+	mode = STARTUP;
+	Serial.println(F("kcrt's thermometer"));
+	show_kcrt();
+	delay(3000);
+
+	pinMode(MODE_PIN, INPUT_PULLUP);
+	pinMode(DHT11_PIN, INPUT);
+
+	dht.begin();
+	thermometer.setthermometer(&amp;dht);
+
+	attachInterrupt(digitalPinToInterrupt(MODE_PIN), modeButton_Push, FALLING);
+
+	Serial.println(F("...Ready"));
+	interrupts();
+
+	mode = CURRENT_TEMP;
+
+}
+
+void show_kcrt() {
+
+	display.clearDisplay();
+	display.drawBitmap(0, 0, startLogo, SCREEN_WIDTH, SCREEN_HEIGHT, WHITE);
+	display.display();
+
+}
+
+void loop() {
+
+	static enum MODES lastMode = STARTUP;
+	static unsigned long lastMeasured = 0;
+	const char *infoStr;
+	float *histBuf;
+	char buf&#91;48];
+	unsigned long m;
+
+	const int START_X = SCREEN_WIDTH - HISTORY_SIZE * 3;
+	const int START_Y = 0;
+	const int WIDTH = HISTORY_SIZE * 3;
+	const int HEIGHT = SCREEN_HEIGHT;
+
+	enum MODES currentMode = mode;
+
+	if (thermometer.measure() == 0 &amp;&amp; lastMode == currentMode) {
+		// 測定値もモードも変更なし
+		sleep_mode();
+		if(currentMode == MILLIS || currentMode == DISPLAY_SLEEP){
+			// pass
+		}else{
+			return;
+		}
+	}
+
+	switch (currentMode) {
+		case DISPLAY_SLEEP:
+			display.clearDisplay();
+			if((millis() / 1000) &amp; 1)
+				display.drawPixel(SCREEN_WIDTH - 8, SCREEN_HEIGHT - 8, WHITE);
+			break;
+		case CURRENT_TEMP:
+		case CURRENT_HUMID:
+			if (mode == CURRENT_TEMP)
+				sprintf(buf, "%s C", thermometer.getTemperatureStr());
+			else
+				sprintf(buf, "%s %%", thermometer.getHumidityStr());
+
+			display.setFont(&amp;FreeSans12pt7b);
+			display.clearDisplay();
+			display.setCursor(32, 24);
+			display.setTextColor(WHITE);
+			display.println(buf);
+			break;
+		case GRAPH_TENSECONDS:
+		case GRAPH_MINUTES:
+		case GRAPH_HOURS:
+			histBuf = (mode == GRAPH_TENSECONDS) ? thermometer.tenSecondsHist->getBuffer() :
+				(mode == GRAPH_MINUTES) ? thermometer.minutesHist->getBuffer() : thermometer.hoursHist->getBuffer();
+			infoStr = (mode == GRAPH_TENSECONDS) ? "5m" :
+				(mode == GRAPH_MINUTES) ? "1h" : "30h";
+
+			display.setFont(&amp;FreeSans9pt7b);
+			sprintf(buf, "%s", thermometer.getTemperatureStr());
+			display.clearDisplay();
+
+			display.setCursor(0, 24);
+			display.setTextColor(WHITE);
+			display.print(buf);
+
+			// TEMP_MIN C - TEMP_MAX Cを画面内に表示することにする。
+
+			display.drawRect(START_X, START_Y, WIDTH, HEIGHT, WHITE);
+			display.drawLine(START_X, START_Y + HEIGHT / 2, START_X + WIDTH - 1 , START_Y + HEIGHT / 2, WHITE);
+
+			for (unsigned int i = 0; i &lt; HISTORY_SIZE; i++) {
+				if (!isnan(histBuf&#91;i])) {
+					float t = constrain(histBuf&#91;i], TEMP_MIN, TEMP_MAX);
+					int x = START_X + i * 3;
+					int h = 1.0 * HEIGHT / (TEMP_MAX - TEMP_MIN) * (t - TEMP_MIN);
+					int y0 = START_Y + HEIGHT - h;
+					display.fillRect(x, y0, 3, h, WHITE);
+					if (t > (TEMP_MAX + TEMP_MIN) / 2)
+						display.drawLine(x, START_Y + HEIGHT / 2, x + 3, START_Y + HEIGHT / 2, BLACK);
+				}
+			}
+			display.setFont();
+			display.setCursor(START_X + 6, 3);
+			display.setTextColor(WHITE, BLACK);
+			display.print(infoStr);
+			break;
+		case LOGO:
+			show_kcrt();
+			break;
+		case VERSION:
+			display.clearDisplay();
+			display.setFont();
+			display.setCursor(0, 8);
+			display.setTextColor(WHITE);
+			display.println("kcrt's thermometer\n v.0.1, kcrt@kcrt.net");
+			break;
+		case MILLIS:
+			display.clearDisplay();
+			display.setFont();
+			display.setCursor(0, 8);
+			display.setTextColor(WHITE);
+			m = millis() / 1000;
+			sprintf(buf, "%02ld day, %02ld hour,\n%02ld min., %02ld sec.", m / (60L * 60 * 24), (m / 60 / 60) % 24, (m / 60) % 60, m % 60);
+			display.println(buf);
+			break;
+	}
+
+	lastMode = currentMode;
+
+	display.display();
+
+}</code></pre>
+<p><!-- /wp:code --></p>

@@ -1,0 +1,99 @@
+---
+date: 2014-10-15 17:04:12
+tags:
+- calc
+- cre
+- egfr
+- medical
+- 旧日記
+- 医学
+title: 成人・小児のGFR計算式
+type: post
+---
+
+<p>eGFR(推定糸球体濾過量) または CCr(クレアチニンクリアランス) が 腎機能の評価に使われます。</p>
+<p>しかし、計算式にはいろいろなものがあり、大変わかりにくくなっているのでまとめておきます。</p>
+<h2>Cockcroft-GaultのCCr計算式</h2>
+<p>臨床現場でもよく利用されている式です。原典は<a href="http://www.ncbi.nlm.nih.gov/pubmed/1244564">Cockcroft D W &amp; Gault M H. Prediction of creatinine clearance from serum creatinine. Nephron 16:31-41,1976.</a>です。18歳から92歳の249人を対象として求めらた式です。</p>
+<p>体表面積1.73m<sup>2</sup>を基準にしているので特に小柄な人では値がずれやすいのに要注意です。また、Jaffé法(後述)を使用しています。</p>
+<p>男性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{CCr}=\frac{(140-\mbox{Age})%20\times%20\mbox{Weight}}{72%20\times%20\mbox{Scr}}" alt="" width="195" height="39" />　　女性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{CCr}=\frac{(140-\mbox{Age})%20\times%20\mbox{Weight}}{72%20\times%20\mbox{Scr}}%20\times%200.85" alt="" /></p>
+<p>この式で求めるのはeGFRでなくCCrです。クレアチニンは(イヌリンと違い)尿細管からの分泌を受けるため、厳密に言うと糸球体濾過量＋αの排泄があります。そのため、GFRよりCCrの方が少し大きな値になります。CCrをeGFRに変換する数式としては、Leveyの補正を用います。</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR}=\mbox{CCr}%20\times%200.84" alt="" /></p>
+<h2>MDRD</h2>
+<p>MDRDはModification of Diet in Renal Diseaseの略です。</p>
+<p>一番最初のMDRD式の原典は<a href="http://www.ncbi.nlm.nih.gov/pubmed/10075613">Levey AS, Bosch JP, Lewis JB, Greene T. A More Accurate Method To Estimate Glomerular Filtration Rate from Serum Creatinine: A New Prediction Equation. Ann Intern Med. 1999;130(6):461–70.</a>です。上記のLeveyの補正もこの論文に乗っています。</p>
+<p>原典タイトルにMore Accurateと書いてあるように、Cococroft-Gaultの式を意識してます。MDRD studyに参加した1628人(式を求めるために1070人、確認のために558人)を対象としました。</p>
+<p>式はとてもむずかしく、</p>
+<p><img src=" https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR}=170\times\mbox{SCr}^{-0.999}\times\mbox{Age}^{-0.176}\times\mbox{SUN}^{-0.170}\times\mbox{Alb}^{0.318}" alt="" /> (SCr: 血清クレアチニン [mg/dL]), SUN: 血清BUN [mg/dL])</p>
+<p>で、出てきた値に女性の場合は0.762、黒人の場合はさらに1.180をかけることになります。また、Jaffé法(後述)を使用しています。</p>
+<p>その後に、<a href="http://www.ncbi.nlm.nih.gov/pubmed?term=16908915">Levey AS et al. Using Standardized Serum Creatinine Values in the Modification of Diet in Renal Disease Study Equation for Estimating Glomerular Filtration Rate Ann Intern Med. 2006 Aug 15;145(4):247-54.</a>で血清クレアチニン値をJaffé法から放射性同位体を使って測定する方法と同等に補正し(Serum creatinine levels were calibrated to an assay traceable to isotope-dilution mass spectrometry.)、変数を変更した下の式が作られました。上記・下記と区別する時は、MDRD186と呼ばれます。</p>
+<p>男性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=186\times\mbox{SCr}^{-1.154}\times\mbox{Age}^{-0.203}" alt="" /></p>
+<p>女性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=(186\times\mbox{SCr}^{-1.154}\times\mbox{Age}^{-0.203})\times0.742" alt="" /></p>
+<p>本式も、黒人の場合は1.212を乗ずる事になります。</p>
+<p>ここで話は終わりません。なんと、前述のMDRD studyでの症例の凍結血清を酵素法で測りなおしをして再度、予測式が作られました。<a href="http://www.ncbi.nlm.nih.gov/pubmed/17332152">Levey AS, Coresh J, Greene T, Marsh J, Stevens L a, Kusek JW, et al. Expressing the Modification of Diet in Renal Disease Study equation for estimating glomerular filtration rate with standardized serum creatinine values. Clin Chem 2007 Apr 53(4):766–72.</a>です。MDRD175とも呼ばれます。</p>
+<p>男性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=175\times\mbox{SCr}^{-1.154}\times\mbox{Age}^{-0.203}" alt="" /></p>
+<p>女性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=(175\times\mbox{SCr}^{-1.154}\times\mbox{Age}^{-0.203})\times0.742" alt="" /></p>
+<p>本式も、黒人の場合は1.212を乗ずる事になります。</p>
+<h2>日本人向けMDRD</h2>
+<p>上記の式で「黒人の場合は1.212」とありましたが、日本人の場合はどうなのでしょうか？</p>
+<p>MDRDは当然白人が母集団になっているため、日本人のGFRと異なった推測がされる可能性が十分にあります。</p>
+<p>そのため、日本人向けの補正係数が求められました。ただ、補正係数に関しては難解なことになっており、</p>
+<ul>
+<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/17384997">Imai E et al. Estimation of glomerular filtration rate by the MDRD study equation modified for Japanese patients with chronic kidney disease. Clin Exp Nephrol. 2007 Mar;11(1):41-50. Epub 2007 Mar 28.</a> では0.881</li>
+<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/18037093?ordinalpos=1&amp;itool=EntrezSystem2.PEntrez.Pubmed.Pubmed_ResultsPanel.Pubmed_DefaultReportPanel.Pubmed_RVDocSum">Imai E et al. Modification of the Modification of Diet in Renal Disease (MDRD) Study equation for Japan. Am J Kidney Dis. 2007 Dec;50(6):927-37.</a>では0.741</li>
+<li><a href="http://www.ncbi.nlm.nih.gov/pubmed/19339088">Matsuo S et al. Revised equations for estimated GFR from serum creatinine in Japan. Am J Kidney Dis. 2009;53(6):982-92.</a>で0.808になっています。</li>
+</ul>
+<p>現在では下記の日本人のGFR推算式ができたので、この方法は使用されていません。</p>
+<p>ちなみに、同様のことを中国でやっている <a href="http://www.ncbi.nlm.nih.gov/pubmed/16988059">Ma Y-C, Zuo L, Chen J-H, Luo Q, Yu X-Q, Li Y, et al. Modified glomerular filtration rate estimating equation for Chinese patients with chronic kidney disease. J Am Soc Nephrol. 2006 Oct;17(10):2937–44.</a>もあり、MDRD186に1.233をかけるというものになっています。</p>
+<h2>日本人のGFR推算式</h2>
+<p>長々と説明してきましたが、とりあえずはこの式が一番重要です。</p>
+<p>従来のMDRD式はGFRが60mL/min./1.73cm<sup>2</sup>以上の若年層で腎機能を過小評価するという欠点があり、また日本人向けの補正係数があるとはいえ正確性に欠けるものでした。</p>
+<p>プロジェクト「日本人のGFR推算式」と銘打ち日本腎臓学会が総力を上げて作ったのがこの式です。<a href="http://www.ncbi.nlm.nih.gov/pubmed/19339088">Matsuo S,et al. Revised equations for estimated GFR from serum creatinine in Japan. Am J Kidney Dis. 2009;53(6):982-92.</a> で日本人向けの式が作られました。イヌリンクリアランスを元に計算された式で;</p>
+<p>男性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=194\times\mbox{SCr}^{-1.094}\times\mbox{Age}^{-0.287}" alt="" /></p>
+<p>女性: <img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=194\times\mbox{SCr}^{-1.094}\times\mbox{Age}^{-0.287}\times0.739" alt="" /></p>
+<p>これが、現在日本で最も使われている日本人向けの式になります。</p>
+<p><a href="http://app.kcrt.net/med/#ccr_adult">実際の計算を行う方は医療計算機</a>へどうぞ。</p>
+<h2>CKD-EPI</h2>
+<p>前述のように、MDRDにはeGFR ≧ 60の時に正確性に欠けるという欠点がありました。そのため、欠点を補う目的で作られたのがこのCKD-EPI式です。出典は<a href="http://www.ncbi.nlm.nih.gov/pubmed/19414839">Levey A, Stevens L. A New Equation to Estimate Glomerular Filtration Rate. Annals of Internal Medicine 2009;150(9):604–12. </a>。</p>
+<p>式は、難解です。</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=141\times(\mbox{SCr}/\kappa})^{\alpha}\times0.993^{\mbox{Age}}" alt="" /></p>
+<p>ただし、<br />
+κは男性で0.9, 女性で0.7<br />
+αはScrがκより大きい時は-1.029, そうでない時は男性は-0.329, 女性は -0.411<br />
+女性の場合は更に1.018をかける<br />
+黒人の場合は更に1.159をかける</p>
+<p>というものになっています。</p>
+<h2>日本人向けCKD-EPI</h2>
+<p>MDRDがそうであったように、CKD−EPIにも日本人向け係数が作られました。</p>
+<p><a href="http://www.ncbi.nlm.nih.gov/pubmed/20416999">Horio M, Imai E, Yasuda Y, Watanabe T, Matsuo S. Modification of the CKD epidemiology collaboration (CKD-EPI) equation for Japanese: accuracy and use for population estimates. Am J Kidney Dis . Elsevier Inc.; 2010 Jul;56(1):32–8.</a>が出典です。</p>
+<p>上記のCKD-EPI式に0.813を乗ずる、というものになっています。</p>
+<h2>Schwartzの式</h2>
+<p>さて、ここからは子どもの話です。</p>
+<p>Cockcroft-Gaultの時代から、成人と同じ式を小児に当てはまるのは無理があると考えられていました。最初に発表されたのが、Schwartzの式です。出典は<a href="http://www.ncbi.nlm.nih.gov/pubmed/951142">Schwartz, et al. A Simple Estimate of Glomerular Filtration Rate in Children Derived From Body Length and Plasma Creatinine Pediatrics 1976; 58:2 259-263</a>です。</p>
+<p>これは、いろいろと欠点がありながらも簡便でベッドサイドでも計算ができるため、長らく使われてきました。式は</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=k\times\mbox{Ht[cm]}/\mbox{Cre}" alt="" /></p>
+<p>と大変シンプルです。</p>
+<ul>
+<li>1歳以下(低出生体重児): k = 0.33</li>
+<li>1歳以下(正常出生体重児): k = 0.45</li>
+<li>2~12歳: k = 0.55</li>
+<li>13~21歳男: k = 0.70</li>
+<li>13~21歳女: k= 0.55</li>
+</ul>
+<p>となっています。気をつけないといけないのは、CreはJaffé法を想定しており、酵素法が主流となった現在では、Jaffé法のCre = 酵素法のCre + 0.2を使用して補正を行ってから代入を行う必要があります。</p>
+<h2>新しいSchwartzの式</h2>
+<p>Schwartzの式が発表されてから何十年も過ぎ、新しい計算式が開発されました。しかし、式が難解で、引数として身長・血清クレアチニン・シスタチンC・血清BUN・性別を必要とするものになっています。原典は: <a href="http://www.ncbi.nlm.nih.gov/pubmed/19158356">Schwartz GJ, Muñoz A, Schneider MF, Mak RH, Kaskel F, Warady B a, et al. New equations to estimate GFR in children with CKD. J Am Soc Nephrol. 2009 Mar;20(3):629–37.</a>です。</p>
+<p>この論文中に簡易的にベッドサイドで使える式として</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=0.413\times\mbox{Ht[cm]}/\mbox{Cre}" alt="" /></p>
+<p>があります。この血清クレアチニンは酵素法です。</p>
+<h2>日本人小児のGFR推定式</h2>
+<p>Cockcroft-GaultやMDRD同様に、欧米人と日本人の体格差を考えると、そのまま計算式を当てはまるのは無理があると考えらました。</p>
+<p>そこで、小児 CKD 対策委員会が2つの新しい計算式を発表しました。出典は<a href="http://www.jsn.or.jp/academicinfo/report/201402.pdf">こちら</a>です。</p>
+<p>ひとつはベッドサイドでも使える簡易式で2歳以上から12歳未満が対象です。</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=0.35\times\mbox{Ht[cm]}/\mbox{Cre}" alt="" /></p>
+<p>もう一つは、より正確な値が求められる五次式で、2 歳以上 19 歳未満で使用できます。</p>
+<p><img src="https://chart.googleapis.com/chart?cht=tx&amp;chl=\mbox{eGFR[mL/min./1.73m^2]}=110.2\times\frac{\mbox{CreStd}}{\mbox{Cre}}%2B2.93" alt="" /></p>
+<p>ただし、CreStd(血清クレアチニン基準値)は</p>
+<p>男児：-1.259 Ht<sup>5</sup> + 7.815 Ht<sup>4</sup> - 18.57 Ht<sup>3</sup> + 21.39 Ht<sup>2</sup> - 11.71 Ht + 2.628<br />
+女児：-4.536 Ht<sup>5</sup> + 27.16 Ht<sup>4</sup> - 63.47 Ht<sup>3</sup> + 72.43 Ht<sup>2</sup> - 40.06 Ht + 8.778</p>
+<p>となっています。手計算はなかなか面倒ですので、実際の計算を行う方は<a href="http://app.kcrt.net/med/#ccr_child">医療計算機をどうぞ</a>。</p>

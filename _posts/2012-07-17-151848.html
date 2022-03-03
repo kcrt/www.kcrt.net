@@ -1,0 +1,99 @@
+---
+date: 2012-07-17 15:18:48
+tags:
+- git
+- 旧日記
+- プログラミング
+title: Git：圧縮とリポジトリのサイズ
+type: post
+---
+
+<p>Git便利ですね。Gitではオブジェクト(ファイルなど)をzlibで圧縮して保持します。それだけではなく、差分を計算したり、複数のオブジェクトを packすることで、単純にすべての履歴を記録するよりも効率的にリポジトリを保持することができます。</p>
+<pre>% git --version
+git version 1.7.9.2
+% alias | grep dirsizeinbyte
+dirsizeinbyte='find . -type f -print -exec wc -c {} \; | awk '\''{ sum += $1; }; END { print sum }'\'</pre>
+<p>duだとファイルサイズではなくてブロックサイズになるので上記コマンドを使います。<a href="http://sonic64.com/2004-05-26.html">Landscape - エンジニアのメモ</a>を参考にしました。</p>
+<p>まずはgit initしただけの状態で。</p>
+<pre>% git init
+Initialized empty Git repository in /Users/kcrt/repostest/.git/
+% cd .git
+% dirsizeinbyte
+13917</pre>
+<p>13.6KiBです。ここからどうなっていくかを見て行きましょう。まずはテキストファイルから。</p>
+<pre>% cd ..
+% perl -e 'for(1..1000000){print "This is a large text file\n";}' &gt; textfile
+% wc -c textfile
+26000000 textfile
+% git add textfile
+% git commit -m "textfile"
+[master (root-commit) f274f23] textfile
+1 file changed, 1000000 insertions(+)
+create mode 100644 <strong>textfile</strong>
+% cd .git
+% dirsizeinbyte
+165888</pre>
+<p>Gitはファイルをテキストファイルとして認識してくれました。巨大なテキストファイル(24.8MiB)を追加したにもかかわらず、リポジトリのサイズは162KiBに収まっています。これは繰り返し文字列でありzlibによる圧縮が良好に効いていることによります。</p>
+<p>ファイルの一部(10000行目のみ)改変してみましょう。</p>
+<pre>% cd .. 
+% vi textfile
+(10000行目のみ改変)
+% cat textfile | grep test 
+10000:This is a large test file
+% git add textfile 
+% git commit -m "text-&gt;test" 
+[master a87fd52] text-&gt;test
+ 1 file changed, <strong>1 insertion(+), 1 deletion(-)</strong>
+% cd .git 
+% dirsizeinbyte 
+317734</pre>
+<p>Gitは一行のみの変化であることをきちんと認識してくれました。しかし、リポジトリのサイズは310KiBとなっています。先ほどのリポジトリのサイズが162KiBなのでほとんど倍です。圧縮されて効率的なのは確かですが、ちょっと期待していた動作と違います。1行だけの変更なので、もう少し小さなサイズになることを期待していました。</p>
+<p>Gitは、コンテンツの変更の際も単純にリポジトリに新しいオブジェクトとして追加します。これは高速に動作しますが、ディスク容量の観点からは非効率です。差分を探して、不必要なオブジェクトを削除するには<strong>git gc</strong>コマンドを使います。</p>
+<pre>% git gc 
+Counting objects: 6, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), done.
+Total 6 (delta 1), reused 0 (delta 0)
+% cd .git 
+% dirsizeinbyte 
+79679</pre>
+<p>リポジトリのサイズは78KiBと十分に小さくなりました。一つ目のファイルを追加した際のサイズより小さくなっています。</p>
+<p>git gcコマンドは上記のように手動で実行することもできますが、必要と考えられるときやリモートリポジトリへのpushを行う時には自動で実行されます。</p>
+<p>それではバイナリファイルの実験に入りましょう。リポジトリを初期化して開始します。</p>
+<pre>% yes | \rm -R .git 
+% git init 
+Initialized empty Git repository in /Users/kcrt/repostest/.git/
+% perl -e 'for(1..1000000){print "\x00\x01\x02\x03\x04\x05\x06\xfd\xfe\xff";}' &gt; binfile 
+% wc -c binfile 
+ 10000000 binfile
+% git add binfile 
+% git commit -m "binfile" 
+[master (root-commit) 8580c04] binfile
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 <strong>binfile</strong>
+% cd .git 
+% dirsizeinbyte 
+67942</pre>
+<p>Gitはファイルをバイナリ(binfile)として認識してくれました。binfileは9.5MiBと大きなファイルですが、繰り返しが多いのでzlibによる圧縮が効率的に行えそうです。リポジトリのファイルは66KiBと期待通り小さなものになりました。</p>
+<p>一部を改変するとどうなるでしょうか。</p>
+<pre>% ..
+% vi -b binfile
+(:%! xxd 編集 :%! xxd -r)
+% git add binfile                                                                   
+% git commit -m "small change"                                                      
+[master c05696a] small change
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+% cd .git                                                                           
+% dirsizeinbyte                                                                     
+121847
+% git gc                                                                            
+Counting objects: 6, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), done.
+Total 6 (delta 1), reused 0 (delta 0)
+% dirsizeinbyte                                                                     
+36149
+</pre>
+<p>binfileに16バイトのわずかな変更を加えました。git gcを行うとリポジトリのサイズは35KiBとなりました。バイナリファイルでも差分による圧縮とzlib圧縮を行なって効率的にリポジトリにファイルが格納されることがわかりました。</p>

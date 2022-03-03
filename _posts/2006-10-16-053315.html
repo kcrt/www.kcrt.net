@@ -1,0 +1,47 @@
+---
+date: 2006-10-16 05:33:15
+tags:
+- 旧日記
+- プログラミング
+title: Subversion利用時に"Can't recode string"エラーが発生することに対する対処法。
+type: post
+---
+
+<p>　Windows機にあったレポジトリをDebian機に移行したところ、日本語を含むファイルが通信できなくなりました。<br />
+　リポジトリの再配置やチェックアウトを行おうとすると、</p>
+<p>svn: Can't recode string</p>
+<p>というエラーが出ます。ただ、Debian側で</p>
+<p># svnlook tree /mnt/repos/書類</p>
+<p>とすると、ファイルが表示されてるので、ちゃんとリポジトリには格納されているみたいです。(Debian-surgeのzshは現在Unicodeに対応していないので「書類」の部分は化けますが大丈夫です。無理だったら、&quot;svnlook?&quot;だけ書いたshファイルを作って試してみるといいかも。)</p>
+<p>良くインターネット上に書いてある対処法に</p>
+<p># export LANG=ja_JP.eucJP</p>
+<p>すれば良い、と書いてありますのでまずはこれを試してみます。</p>
+<p>　とりあえず、inetd経由で起動することになっているsvnを止めます。<br />
+% sudo vi /etc/inetd.conf</p>
+<blockquote><p># svn           stream  tcp nowait svn /usr/sbin/tcpd /usr/bin/svnserve -i -r /mnt/repos<br />
+(コメントアウトする)</p></blockquote>
+<p>
+% sudo killall -HUP inetd<br />
+んで、daemonとして起動してみる。<br />
+% su<br />
+# LANG=ja_JP.UTF-8 /usr/bin/svnserve -d -r /mnt/repos</p>
+<p>　これで日本語ファイルも通信できました。LANG=ja_JP.UTF-8にするためにはDebianにUTF-8ロケールを追加しなければいけません。方法は<a href="http://park15.wakwak.com/~unixlife/linux/de-utf8.html" target="_blank">このページ</a>が詳しいです。<br />
+　またdaemonとして起動するために、引数は-dと成ってるのに注意してください。</p>
+<p>
+　で、これで日本語ファイルも扱えるようになったんですが、ただでさえメモリの少ない機(というか玄箱)なので、daemonではなくてinetd経由でどうしても起動したいのです。<br />
+　が、ここで迷う。svnserveはユーザーsvnとして起動するのですが、どこでLANGを設定すればいいんだろう。ホームディレクトリすらないしなぁ。<br />
+/etc/profileはbashだよなぁ。/etc/environmentもja_JP.UTF-8になってる。</p>
+<p>　というわけで、いろいろ試してみたけど分かりませんでした。もっと調べても良かったんですけど、etchに成ったときに変わるかもしれないみたいなんで、断念。</p>
+<p>とりあえずの対処法を書いておきます。<br />
+% su<br />
+# vi /system/svnservejp.sh            (どこでもいいです)</p>
+<blockquote><p>#!/bin/sh</p>
+<p>export LANG="ja_JP.UTF-8"<br />
+/usr/bin/svnserve -i -r /mnt/repos</p></blockquote>
+<p>
+# chmod u+x /system/svnservejp.sh<br />
+# vi /etc/inetd.conf</p>
+<blockquote><p>svn         stream  tcp nowait svn  /usr/sbin/tcpd /system/svnservejp.sh</p></blockquote>
+<p>
+# killall -HUP inetd</p>
+<p>これでよし。接続のたびにシェルが一個無駄だけど、まぁ仕方ないか。この方法はcronやメールスクリプトでも使えるので覚えておいて損はないですよ。</p>

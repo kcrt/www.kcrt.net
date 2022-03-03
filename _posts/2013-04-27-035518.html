@@ -1,0 +1,34 @@
+---
+date: 2013-04-27 03:55:18
+tags:
+- gcj
+- programming
+- 旧日記
+- プログラミング
+title: Google Code Jam Round 1A - Problem A. Bullseye
+type: post
+---
+
+<p>Problem A. Bullseye</p>
+<p>X個目(0 origin)の黒い円の半径 = (r+ 2X + 1)<sup>2</sup> - (r+2X)<sup>2</sup></p>
+<p>a<sup>2</sup>-b<sup>2</sup>=(a+b)(a-b)なので上記 = (2r + 4X + 1)</p>
+<p>n番目までの円を書くと、使うインクの総量はΣ<sub>(x=0 to n)</sub> 2r+4x+1</p>
+<p>Σ<sub>(x=0 to n)</sub> x= n(n+1)/2、Σ<sub>(x=0 to n) </sub>1=n+1。</p>
+<p>ので、上記 = 2n<sup>2</sup> + (2r+3)n+(2r+1)となる。</p>
+<p>2n<sup>2</sup> + (2r+3)n+(2r+1) &gt; t →  2n<sup>2</sup> + (2r+3)n+(2r+1) - t &gt; 0</p>
+<p>解の公式より上記nを求める</p>
+<p>結局perlでやってみた。</p>
+<pre>use bignum;
+my $case = &lt;&gt;;
+
+for(my $i=0; $i&lt;$case; $i++){
+  my @line = split(/ /, &lt;&gt;);
+  my $r = $line[0];
+  my $t = $line[1];
+  my $circles = 0;
+
+  my $n = (sqrt((2*$r+3)**2 - 8 * (2*$r+1-$t))-2*$r-3)/4;
+  $circles = int($n) + 1;   # 0 origin
+
+  print("Case #" . ($i+1) . ": " . $circles . "\n");
+}</pre>

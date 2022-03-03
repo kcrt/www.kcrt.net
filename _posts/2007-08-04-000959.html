@@ -1,0 +1,930 @@
+---
+date: 2007-08-04 00:09:59
+tags:
+- 旧日記
+- プログラミング
+title: vimrc
+type: post
+---
+
+<h2><strong>注意</strong></h2>
+<p><strong>この記事はobsoleteです。あたらしいvimrcが<a href="http://blog.kcrt.net/2013/08/02/115121">僕がMacBookで必ず使う43のソフトウェア達</a>にありますのでそちらをご参照ください。</strong></p>
+<p>なんだか最近vimrcとか、環境をさらすのがはやってるらしいね。というわけで公開いたします。検索から来た人の役に少しでも立ってくれれば、と。<br />
+かなり特殊なところが多い・・・ですが、とてもおもしろい部分も多いと思うので是非見てやってください。あ、でも変なこともしてるので理解せずそのまま使うのはあんまりおすすめできない・・・かも。<br />
+あ、あとDebianでしか試してないんで、Fedoraだとここはこうだよ、的なことがあったら是非教えてください。</p>
+<p>vimrc(このエントリ)・<a href="http://blog.kcrt.net/?eid=668875" target="_blank">zshrc</a>・<a href="http://blog.kcrt.net/?eid=668876" target="_blank">screenrc</a></p>
+<h4>スクリーンショット</h4>
+<p><img class="pict" alt="vimrc" src="/images/vimrc.png" width="848" height="542" /></p>
+<h4>.vimrc</h4>
+<p>&nbsp;</p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" .vimrc</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" kcrt &lt;kcrt kcrt.net&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">scriptencoding</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> utf</pre>
+<p><span style="color: #ffffa0;">-</span><span style="color: #ffa0a0;">8</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">nocompatible</span><span style="color: #a0ffa0;">" 拡張機能を有効にする</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- 最初から入ってる奴 -----------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> &amp;t_Co</pre>
+<p><span style="color: #ffffa0;">&gt;</span><span style="color: #ffa0a0;">2</span><span style="color: #ffffa0;">||</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"gui_running"</span><span style="color: #ffffa0;">)</span><span style="color: #a0ffa0;">" カラーディスプレイ</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">on</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">filetype</span><span style="color: #a0ffff;">plugin</span><span style="color: #a0ffff;">indent</span><span style="color: #a0ffff;">on</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> vimrcEx</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">FileType</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> text</pre>
+<p><span style="color: #ffffa0;">setlocal</span><span style="color: #ff80ff;">textwidth</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=78</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufReadPost</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffa500;"> ¥</span><span style="color: #ffffa0;">if</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> line(</pre>
+<p><span style="color: #ffa0a0;">"'¥""</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">)</pre>
+<p><span style="color: #ffffa0;">&gt;</span><span style="color: #ffa0a0;">0</span><span style="color: #ffffa0;">&amp;&amp;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> line(</pre>
+<p><span style="color: #ffa0a0;">"'¥""</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">)</pre>
+<p><span style="color: #ffffa0;">&lt;=</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> line(</pre>
+<p><span style="color: #ffa0a0;">"$"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">) |</pre>
+<p><span style="color: #ffa500;"> ¥</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">   exe</pre>
+<p><span style="color: #ffa0a0;">"normal g`¥""</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> |</pre>
+<p><span style="color: #ffa500;"> ¥</span><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> END
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== ユーザーインターフェース関係 =============</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- 設定 -------------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">backspace</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=2</pre>
+<p><span style="color: #a0ffa0;">" &lt;BS&gt;の動作設定</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">history</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=50</pre>
+<p><span style="color: #a0ffa0;">" :コマンドの履歴数</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">showcmd</span><span style="color: #a0ffa0;">" コマンド表示</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">laststatus</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=2</pre>
+<p><span style="color: #a0ffa0;">" 最下部情報行の行数</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">statusline</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=%h%w%f¥ %m%#RO#%r%#StatusLine#%y%{'['.(&amp;fenc!=''?&amp;fenc</pre>
+<p><span style="color: #ffffa0;">:</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">&amp;enc).']['.&amp;ff.']'}%=%4v¥ %l/%L¥ (%p%%)</pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">hlsearch</span><span style="color: #a0ffa0;">" 検索時ハイライト有効</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- マウス -----------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> &amp;term</pre>
+<p><span style="color: #ffffa0;">==</span><span style="color: #ffa0a0;">"screen"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">mouse</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=a</pre>
+<p><span style="color: #a0ffa0;">" マウス有効</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">ttymouse</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=xterm2</pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- タブインターフェース(またはバッファ) -----</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">map</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Q gq</pre>
+<p><span style="color: #a0ffa0;">" C-Tabでタブが使えるときはタブを切り替え</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" 使えない場合はバッファの切り替えを行う</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">exists</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">":tab"</span><span style="color: #ffffa0;">))</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">       :tabn</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-S-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">     :tabprev</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">       :bn</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-S-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">     :bp</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">"C-→とC-←をC-Tab, C-S-Tabと同様の操作にする</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">^[</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">[C</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">^[</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">[D</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-S-Tab</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" タブラインの表記</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">tabline</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=%!MyTabLine()</pre>
+<p><span style="color: #a0ffa0;">"後述</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- コマンド略記------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">ca</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> man</pre>
+<p><span style="color: #ffffa0;">help</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- 補完 -------------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">complete</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> =.</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">w</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">k</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">b</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">u</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">t</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">exists</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">'*pumvisible'</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">&amp;&amp;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> has</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"gui"</span><span style="color: #ffffa0;">))</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">inoremap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">expr</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> pumvisible() ? "</pre>
+<p><span style="color: #ffa500;">¥&lt;</span><span style="color: #ffa500;">c-y</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">" : "</pre>
+<p><span style="color: #ffa500;">¥&lt;</span><span style="color: #ffa500;">c-g</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">u</pre>
+<p><span style="color: #ffa500;">¥&lt;</span><span style="color: #ffa500;">cr</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">"</pre>
+<p><span style="color: #ffffa0;">inoremap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">expr</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">Esc</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> pumvisible() ? "</pre>
+<p><span style="color: #ffa500;">¥&lt;</span><span style="color: #ffa500;">C-E</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">":"</pre>
+<p><span style="color: #ffa500;">¥&lt;</span><span style="color: #ffa500;">Esc</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">"</pre>
+<p><span style="color: #a0ffa0;"> " inoremap &lt;expr&gt; &lt;c-n&gt; pumvisible() ? </span><span style="color: #ffa0a0;">"¥&lt;lt&gt;c-n&gt;"</span><span style="color: #a0ffa0;"> : </span><span style="color: #ffa0a0;">"¥&lt;c-n&gt;¥&lt;c-r&gt;=pumvisible() ? ¥"</span><span style="color: #a0ffa0;">¥¥&lt;lt&gt;down&gt;¥" : ¥"¥"¥&lt;lt&gt;cr&gt;"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">exists</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">'&amp;omnifunc'</span><span style="color: #ffffa0;">))</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">imap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-Space</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-X</span><span style="color: #ffa500;">&gt;&lt;</span><span style="color: #ffa500;">C-O</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">imap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-Space</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-N</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- その他のキー設定 -------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">map</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">F1</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> K</pre>
+<p><span style="color: #ffffa0;">nnoremap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">UP</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> gk</pre>
+<p><span style="color: #ffffa0;">nnoremap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">DOWN</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> gj
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== 編集に関連する設定 =======================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- 文字エンコードの設定 ---------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">fileencodings</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=utf-8</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">shift_jis</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">euc-jp</pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">fileencoding</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=utf-8</pre>
+<p><span style="color: #a0ffa0;">" デフォルトのファイルエンコーディング</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">ambiwidth</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=double</pre>
+<p><span style="color: #a0ffa0;">" 幅未定義MBSCの幅</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- 親切設定 ---------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">showmatch</span><span style="color: #a0ffa0;">" 対応する括弧を強調表示</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">display</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lastline</pre>
+<p><span style="color: #a0ffa0;">" @@@表示</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- 検索 -------------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">incsearch</span><span style="color: #a0ffa0;">" インクリメンタルサーチ</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">ignorecase</span><span style="color: #a0ffa0;">" 検索時大文字・小文字無効</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">smartcase</span><span style="color: #a0ffa0;">" 検索時大文字・小文字自動判別</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" 見つかったアイテムを自動的に中央に</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> n nzz</pre>
+<p><span style="color: #ffffa0;">nmap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> N Nzz</pre>
+<p><span style="color: #a0ffa0;">" ----- タブとインデント -------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">tabstop</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=4</pre>
+<p><span style="color: #a0ffa0;">" &lt;Tab&gt;に対応する空白数</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">shiftwidth</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=4</pre>
+<p><span style="color: #a0ffa0;">" インデントに使われる空白数</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">softtabstop</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=4</pre>
+<p><span style="color: #a0ffa0;">" タブとして使われる空白数</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">autoindent</span><span style="color: #a0ffa0;">" 自動インデント</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">smartindent</span><span style="color: #a0ffa0;">" スマートインデント</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== 動作設定 =================================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- バックアップ -----------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">backup</span><span style="color: #a0ffa0;">" バックアップ有効</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> <span style="background-color: #ffff00;"><span style="color: #0000ff;">TODO</span></span></pre>
+<p><span style="color: #ff80ff;">:</span><span style="color: #a0ffa0;">フォルダがあるかどうか調べる</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"win32"</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">backupdir</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=d</pre>
+<p><span style="color: #ffffa0;">:</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">/kt/Backup</pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">backupdir</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=~/.backup</pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- クリップボード ---------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nmap</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-R</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">*</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-O</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">"*p</pre>
+<p><span style="color: #ffffa0;">nmap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*yy   V"*y</pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"win32unix"</span><span style="color: #ffffa0;">)</span><span style="color: #a0ffa0;">" cygwinの事です</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*p :r!getclip</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">vnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*y :!putclip</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">u:echo 'copyed'</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">elseif</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"unix"</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #ff80ff;">$TERM</span><span style="color: #ffffa0;">==</span><span style="color: #ffa0a0;">"screen"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*p  i</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">C-O</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">:!screen -X paste .</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">vnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*y  :w! ~/tmp/vim-clipboard</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">:!screen -X readbuf ~/tmp/vim-clipboard</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">:echo 'copyed'</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">nnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*p  :r ~/tmp/vim-clipboard</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">vnoremap</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> "*y  :w! ~/tmp/vim-clipboard</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">:echo copyed'</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- screen関係の設定 -------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> &amp;term</pre>
+<p><span style="color: #ffffa0;">=~</span><span style="color: #ffa0a0;">"screen"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> IsTerminal</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">VimLeave</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">silent</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">! exe</pre>
+<p><span style="color: #ffa0a0;">'!echo -n "^[k'</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">  &amp;</pre>
+<p><span style="color: #ffffa0;">shell</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">'^[¥¥"'</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufEnter</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">silent</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">! exe</pre>
+<p><span style="color: #ffa0a0;">'!echo -n "^[k'</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">"vim:%"</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">'^[¥¥"'</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> END</pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== 印刷設定 =================================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" set printfont="ヒラギノ" -&gt; gvimrc</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== ファイル関連設定 =========================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- テンプレート -----------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> LoadTemplate</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.pl</pre>
+<p><span style="color: #ffa0a0;">0</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">r ~/etc/template/template</pre>
+<p><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">pl</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.php</pre>
+<p><span style="color: #ffa0a0;">0</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">r ~/etc/template/template</pre>
+<p><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">php</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.cpp</pre>
+<p><span style="color: #ffa0a0;">0</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">r ~/etc/template/template</pre>
+<p><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">cpp</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.h</pre>
+<p><span style="color: #ffa0a0;">0</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">r ~/etc/template/template</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffffa0;">h</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> END</pre>
+<p><span style="color: #a0ffa0;">" ----- ファイル別設定 ---------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> filetypedetect</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.txt :</pre>
+<p><span style="color: #ffffa0;">setf</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> txt</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufReadPre</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.howm :</pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">fileformats</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=dos</pre>
+<p><span style="color: #ffffa0;">,</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">unix</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufReadPost</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.pl :</pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">filetype</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=perl</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufReadPost</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.pm :</pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">filetype</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=perl</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.pl :map</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">F5</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> :!perl</pre>
+<p><span style="color: #40ffff;">%</span><span style="color: #40ffff;">:p</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">&lt;CR&gt;</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.pm :map</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">F5</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> :!perl</pre>
+<p><span style="color: #40ffff;">%</span><span style="color: #40ffff;">:p</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">&lt;CR&gt;</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.php :map</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">F5</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> :!php</pre>
+<p><span style="color: #40ffff;">%</span><span style="color: #40ffff;">:p</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">&lt;CR&gt;</pre>
+<p><span style="color: #ffffa0;">autocmd</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.tex :map</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">F5</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> :</pre>
+<p><span style="color: #ffffa0;">call</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> PreviewTeX()</pre>
+<p><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">CR</span><span style="color: #ffa500;">&gt;</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">augroup</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> END</pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> php_baselib</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> php_htmlInString</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> php_folding</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== プラグイン設定 ===========================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- howm -------------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"win32"</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_dir</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">"d:/kt/howm/"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_dir</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">"~/howm/"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_filename</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">"%Y-%m.howm"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_fileencoding</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">"utf-8"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_removeEmpty</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> g:howm_instantpreview</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" ----- PHPManual --------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">BufNewFile</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">,</pre>
+<p><span style="color: #a0ffff;">BufRead</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *.php</pre>
+<p><span style="color: #ffffa0;">map</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> K ¥P</pre>
+<p><span style="color: #a0ffa0;">" ----- その他のプラグイン -----------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">runtime</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> ftplugin/man</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffffa0;">vim</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> keisen_type</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">2</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== 色設定 ===================================</i></span></span></pre>
+<p><span style="color: #ffffa0;">set</span><span style="color: #ff80ff;">t_Co</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=16</pre>
+<p><span style="color: #ffffa0;">if</span><span style="color: #40ffff;">has</span><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"gui"</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">gui</pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">colorscheme</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> torte</pre>
+<p><span style="color: #a0ffa0;">" ----- 色の宣言(上書き) -------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> StatusLine</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#4242ff</span><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">bold</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Title</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightblue</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightblue</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">bold</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Comment</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgreen</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgreen</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Statement</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightyellow</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Type</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=blue</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightcyan</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#eeee55</span><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#333300</span><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkyellow</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Pmenu</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> PmenuSel</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightblue</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightblue</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> PmenuSbar</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> PmenuThumb</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> TabLine</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=black</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">bold</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> TabLineFill</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=black</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">underline</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> TabLineSel</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=blue</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffa0;">" ----- 色の宣言(オリジナル) ---------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label2</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#e0b611</span><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=yellow</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label3</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#b08d33</span><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkyellow</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Bold</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">bold</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Italic</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">italic</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Striken</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#dddddd</span><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=gray</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> HR</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=gray</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkgray</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> SuperHR</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkcyan</pre>
+<p><span style="color: #a0ffff;">gui</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ff80ff;">italic</span><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightgray</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=blue</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Citation</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=</pre>
+<p><span style="color: #ffa0a0;">#222200</span><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=lightyellow</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkyellow</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=black</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> TabCloseBox</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=darkred</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #ffffa0;">hi</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> RO</pre>
+<p><span style="color: #a0ffff;">ctermbg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=red</pre>
+<p><span style="color: #a0ffff;">ctermfg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">guifg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=white</pre>
+<p><span style="color: #a0ffff;">guibg</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">=magenta</pre>
+<p><span style="color: #a0ffa0;">" ----- 文法定義(見出し) -------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"^¥* .*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label2</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"¥t¥* .*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label3</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"¥t¥t¥* .*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label2</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"^</span><span style="color: #ffa0a0;">[¥t 　]</span><span style="color: #ffa0a0;">*</span><span style="color: #ffa0a0;">[・□■○●][^・]</span><span style="color: #ffa0a0;">.*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"^</span><span style="color: #ffa0a0;">[・□■○●][^・]</span><span style="color: #ffa0a0;">.*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label2</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"^</span><span style="color: #ffa0a0;">[¥t 　]</span><span style="color: #ffa0a0;">*¥*¥* .*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Label3</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"^</span><span style="color: #ffa0a0;">[¥t 　]</span><span style="color: #ffa0a0;">*¥*¥*¥* .*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #a0ffa0;">" au Syntax * syntax match HR display </span><span style="color: #ffa0a0;">".*-----.*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i> syntax match SuperHR display ".*=====.*"</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- 文法定義(ハイライト) ---------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Bold</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"¥*¥*.*¥*¥*"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Bold</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">b</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa0a0;">.*&lt;¥/b&gt;"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Italic</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"__.*__"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Italic</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">i</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa0a0;">.*&lt;¥/i&gt;"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *</pre>
+<p><span style="color: #ffffa0;">syntax</span><span style="color: #a0ffff;">match</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> Striken</pre>
+<p><span style="color: #ffa500;">display</span><span style="color: #ffa0a0;">"</span><span style="color: #ffa500;">&lt;</span><span style="color: #ffa500;">s</span><span style="color: #ffa500;">&gt;</span><span style="color: #ffa0a0;">.*&lt;¥/s&gt;"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">au</span><span style="color: #a0ffff;">Syntax</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> *<span style="background-color: #222200;"><span style="color: #ffffa0;"> syntax region Citation display start=".*&gt;&gt;&gt;" end="&lt;&lt;&lt;</span></span>"
+
+<span style="background-color: #008080;"><span style="color: #e0e0e0;"><i>" ===== 以下、関数 ===============================</i></span></span></pre>
+<p><span style="color: #a0ffa0;">" ----- タブライン -------------------------------</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">function</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> MyTabLine</pre>
+<p><span style="color: #ffffa0;">()</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">''</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> tabname</pre>
+<p><span style="color: #ffffa0;">=</span><span style="color: #ffa0a0;">''</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">for</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> i</pre>
+<p><span style="color: #ffffa0;">in</span><span style="color: #40ffff;">range</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">tabpagenr</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">'$'</span><span style="color: #ffffa0;">))</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> tabname</pre>
+<p><span style="color: #ffffa0;">=(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">':'</span><span style="color: #ffffa0;">.</span><span style="color: #40ffff;">bufname</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">tabpagebuflist</pre>
+<p><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">[tabpagewinnr</pre>
+<p><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">-</span><span style="color: #ffa0a0;">1</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">]</pre>
+<p><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">.=</span><span style="color: #ffa0a0;">'%'</span><span style="color: #ffffa0;">.</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">'T'</span><span style="color: #a0ffa0;">"マウスクリック用</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">if</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">==</span><span style="color: #40ffff;">tabpagenr</span><span style="color: #ffffa0;">()</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">.=</span><span style="color: #ffa0a0;">'%#TabLineSel#/ '</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> tabname</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">' %#TabCloseBox#%999X[X]%X%#TabLineSel# ¥'</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">else</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">.=</span><span style="color: #ffa0a0;">'%#TabLine#/ '</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> tabname</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">' %'</span><span style="color: #ffffa0;">.</span><span style="color: #ffffa0;">(</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;">i</pre>
+<p><span style="color: #ffffa0;">+</span><span style="color: #ffa0a0;">1</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">'X[X]%X ¥'</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endif</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endfor</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">let</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">.=</span><span style="color: #ffa0a0;">'%#TabLineFill#%T%=vim 7.0'</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">return</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> s</pre>
+<p><span style="color: #ffffa0;">endfunction</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">function</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> PreviewTeX</pre>
+<p><span style="color: #ffffa0;">()</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">exec</span><span style="color: #ffa0a0;">"!platex -kanji=utf8 -output-directory="</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> &amp;backupdir</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">" "</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> expand</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"%:p"</span><span style="color: #ffffa0;">)</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">exec</span><span style="color: #ffa0a0;">"silent ! start "</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> &amp;backupdir</pre>
+<p><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">"/"</span><span style="color: #ffffa0;">.</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"> expand</pre>
+<p><span style="color: #ffffa0;">(</span><span style="color: #ffa0a0;">"%:t:r"</span><span style="color: #ffffa0;">)</span><span style="color: #ffffa0;">.</span><span style="color: #ffa0a0;">".dvi"</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
+<p><span style="color: #ffffa0;">endfunction</span></p>
+<pre style="line-height: normal; background-color: #000000; padding-left: 16px; color: #eeeeee;"></pre>
