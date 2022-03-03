@@ -80,7 +80,7 @@
 						{{page.title}}
 					</h2>
 					<h2 class="subtitle">
-						{{page.date | date: "%Y-%m-%d %H:%M:%S"}} by kcrt
+						{{page.date}} by kcrt
 					</h2>
 					<div class="tags">
 						{% for tag in page.tags %}
@@ -110,7 +110,7 @@
 	<footer class="footer">
 		<div class="content has-text-centered">
 			Feel free to link to my site! <br />
-			Written by TAKAHASHI, Kyohei (kcrt)
+			Written by TAKAHASHI, Kyohei (kcrt) - {{site.time}}
 		</div>
 	</footer>
 

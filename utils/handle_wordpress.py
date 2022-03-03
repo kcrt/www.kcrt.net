@@ -19,8 +19,6 @@ def main():
 
     blogimg_re = r'(https://blog.kcrt.net/files/.*\.(jpg|png|jpeg|JPG|PNG))'
 
-    category_replacer = {"プログラミング": "Computing", "Web": "Computing", "ハードウェア": "Computing", "Web": "Computing",
-                         "Mac": "Computing", "iPad": "Computing", "iPhone": "Computing", "日記": "Diary", "ソフトウェア": "Computing"}
     for file in pathlib.Path(".").glob("*"):
         if file.stem == "process":
             continue
