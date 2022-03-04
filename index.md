@@ -15,9 +15,9 @@ title: "Nanoseconds Hunter"
 
 ## 最近の記事
 
-{% for i in (1..5) %}
+{% for post in site.posts limit:5 %}
 
-- [{{site.posts[i].title}}]({{site.posts[i].url}}) - {{site.posts[i].date}}
+- [{{post.title}}]({{post.url}}) - {{post.date}}
 
 {% endfor %}
 

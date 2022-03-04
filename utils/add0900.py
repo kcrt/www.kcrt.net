@@ -14,7 +14,9 @@ def main():
         print(file)
         lines = file.read_text()
         post = frontmatter.loads(lines)
-        post["data"] = post["date"].strftime("%Y-%m-%d %H:%M:%S +0900")
+        post["date"] = post["date"].strftime("%Y-%m-%d %H:%M:%S +0900")
+        if "data" in post:
+            del post["data"]
         filename = "../_posts/" + file.stem + ".html"
         frontmatter.dump(post, filename)
         # print(frontmatter.dumps(post))
