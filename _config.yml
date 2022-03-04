@@ -9,6 +9,8 @@ kramdown:
   input: GFM
 timezone: Asia/Tokyo
 livereload: true
+exclude:
+  - no_git
 defaults:
   -
     scope:
