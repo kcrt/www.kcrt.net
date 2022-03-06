@@ -11,6 +11,9 @@ timezone: Asia/Tokyo
 livereload: true
 exclude:
   - no_git
+gems:
+  - jekyll-sitemap
+permalink: /:categories/:title
 defaults:
   -
     scope:
@@ -23,4 +26,5 @@ defaults:
       path: ""
       type: posts
     values:
+      permalink: /:categories/:year/:month/:day/:title
       layout: pages

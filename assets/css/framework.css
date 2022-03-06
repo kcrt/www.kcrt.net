@@ -1,1 +1,14 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+
+div.content h2 {
+    transform: skew(-10deg);
+    background: linear-gradient(transparent 50%,#d9f4ff 53%,#d9f4ff 75%,transparent 80%);
+}
+
+div.content h3 {
+    border-bottom: 1px dashed #000;
+}
+
+div.content h4 {
+    border-bottom: 0.5px dashed #ccc;
+}

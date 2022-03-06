@@ -1,5 +1,6 @@
 ---
 title: "Nanoseconds Hunter"
+permalink: /
 ---
 
 ## このサイトは何？
