@@ -84,7 +84,10 @@
 						{{page.title}}
 					</h2>
 					<h2 class="subtitle">
-						{{page.date}} by kcrt
+						{{page.date | date: "%Y-%m-%d %H:%M %Z"}}{%if page.update %}{{page.update | date: "%Y-%m-%d
+						%H:%M %Z" | prepend: ", last
+						update: "}}{% endif %} by
+						kcrt
 					</h2>
 					<div class="tags">
 						{% for tag in page.tags %}
@@ -116,7 +119,8 @@
 	<footer class="footer">
 		<div class="content has-text-centered">
 			Feel free to link to my site! <br />
-			Written by TAKAHASHI, Kyohei (kcrt) - last update: {{site.time}}
+			Written by <a href="https://profile.kcrt.net/">TAKAHASHI, Kyohei (kcrt)</a> - last update: {{site.time |
+			date: "%Y-%m-%d %H:%M %Z"}}
 		</div>
 	</footer>
 

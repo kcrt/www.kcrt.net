@@ -1,8 +1,9 @@
 ---
 date: 2017-04-19 15:36:02 +0900
+update: 2022-03-07 00:17:25 +0900
 tags:
 - 旧日記
-- Web
+- web
 - ソフトウェア
 title: ffmpegをGoogle Compute Engine経由で使ってみた
 type: post
@@ -10,13 +11,16 @@ type: post
 
 <p>ffmpeg、便利ですよね。ただ、どうしてもエンコード作業という物はCPUパワーと時間を消費します。</p>
 <h2>背景</h2>
-<p>つい最近、Panasonic の4Kビデオカメラ [amazon text=VX980M&amp;asin=B01ACVX8PA]を購入しました。画質もよく、大変満足しているのですが、4K画質はとにかくファイルサイズが大きくて大変です。10分程度の動画でも約5GBになってしまい、普段の取り回しにはやや不便です。</p>
+<p>つい最近、Panasonic の4Kビデオカメラを購入しました。画質もよく、大変満足しているのですが、4K画質はとにかくファイルサイズが大きくて大変です。10分程度の動画でも約5GBになってしまい、普段の取り回しにはやや不便です。
+</p>
 <p>そこで、もともとの4K動画は将来使用できるようにクラウド上へとバックアップし、ローカルには960x540 30fpsにエンコードしたものを置いておくことにしました。</p>
 <p>しかし、僕のメインマシンはMacBook Pro 12" (1.3 GHz Intel Core m7)なので、どう考えても本格的なエンコード作業には向いていません。</p>
 <p>そこで、ffmpegをGoogle Compute Engineで動かし、クラウドでのエンコードを行ってみたので、引っかかった点も踏まえて、ここに報告させていただきます。</p>
 <h2>方法</h2>
-<p>まず、<a href="https://cloud.google.com/compute/">Google Compute Engine</a>が使用できるようになっているのが大前提です。まだの人は<a href="http://qiita.com/tags/googlecomputeengine">導入を済ませてください</a>。</p>
-<p>まずは、インスタンスを作ります。今回はエンコード作業が目的ですので、CPUを強化した設定として、<code>n1-highcpu-8</code>を使用します。また、ちょっとお高いですが、近い方が通信コストも少ないでしょうから<code>、asia-northeast1-c</code>を選ぶことにしてみました。</p>
+<p>まず、<a href="https://cloud.google.com/compute/">Google Compute Engine</a>が使用できるようになっているのが大前提です。まだの人は<a
+        href="http://qiita.com/tags/googlecomputeengine">導入を済ませてください</a>。</p>
+<p>まずは、インスタンスを作ります。今回はエンコード作業が目的ですので、CPUを強化した設定として、<code>n1-highcpu-8</code>を使用します。また、ちょっとお高いですが、近い方が通信コストも少ないでしょうから<code>、asia-northeast1-c</code>を選ぶことにしてみました。
+</p>
 <pre>% gcloud compute instances create cloudencode --image-family cos-stable --image-project cos-cloud --zone "asia-northeast1-c" --machine-type "n1-highcpu-8"</pre>
 <p>もちろん、UbuntuやCentOSを選んでも良いですが、Dockerを使った方が後々の取り回しも楽だと思いますので、Container-Optimized OSを選ぶことにします。</p>
 <p>まずは、dockerでffmpegを動かすのを試してみましょう。イメージは人気のある<code>jrottenberg/ffmpeg</code>を選ぶことにします。</p>
@@ -65,11 +69,14 @@ ffmpeg version 3.3 Copyright (c) 2000-2017 the FFmpeg developers
 <h2>結果</h2>
 <p>肝心の性能です。</p>
 <p>まずはlocalで実行している場合。</p>
-<p><img class="alignnone size-full wp-image-914" src="/images/2017-04-19_local.png" alt="" width="1347" height="618" /></p>
+<p><img class="alignnone size-full wp-image-914" src="/images/2017-04-19_local.png" alt="" width="1347" height="618" />
+</p>
 <p>うーん、0.547x, 16 fpsと出ています。10分の動画の変換に約20分かかることになります。</p>
 <p>それではクラウドではどうでしょう。</p>
-<p><img class="alignnone size-full wp-image-913" src="/images/2017-04-19_cloud.png" alt="" width="1347" height="613" /></p>
+<p><img class="alignnone size-full wp-image-913" src="/images/2017-04-19_cloud.png" alt="" width="1347" height="613" />
+</p>
 <p>リアルタイム変換より速い速度で変換できています。4K動画の変換なので、Uploadが速度のボトルネックになる場合もあるかもしれませんが、ローカルの2.3倍の速度でエンコードできたようです。</p>
 <h2>注意点</h2>
 <p>Google Cloud Computingなので、料金がかかります。また、リソースの割当量にも注意が必要です。</p>
-<p>MacBookやその他のNetBookなどでも、この方法なら動画のエンコードを行うことができます。ただ、巨大なファイルをアップロードする必要もあり、思ったより速度がかせげない、というのが正直な感想です。今後H.245/HEVCなどさらに負荷のかかる動画形式が一般的になってくれば、有用になるかもしれません。</p>
+<p>MacBookやその他のNetBookなどでも、この方法なら動画のエンコードを行うことができます。ただ、巨大なファイルをアップロードする必要もあり、思ったより速度がかせげない、というのが正直な感想です。今後H.245/HEVCなどさらに負荷のかかる動画形式が一般的になってくれば、有用になるかもしれません。
+</p>
