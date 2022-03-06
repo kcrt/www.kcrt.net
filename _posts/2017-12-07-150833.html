@@ -36,7 +36,7 @@ console.log("Peason's correlation coefficient: " + r.cor(arrA, arrB));</pre>
 <h2>小ネタ</h2>
 <p>Rでは倍精度浮動小数点(double9は他言語と同じように<a href="https://ja.wikipedia.org/wiki/IEEE_754">IEEE 754</a>に従って、実装されています。これは、1bitの符号と、11bitの指数部、52bitの仮数部で数値を表す方式です。</p>
 <p>NaNはこの決まりに含まれており、指数部のbitがすべて1であり、仮数部が0以外のもの、と定められています。これは他の言語も共通です。</p>
-<p><img class="alignnone size-full wp-image-927" src="http://blog.kcrt.net/files/2017/12/double.png" alt="" width="800" height="600" /></p>
+<p><img class="alignnone size-full wp-image-927" src="/images/2017-12-07_double.png" alt="" width="800" height="600" /></p>
 <p>しかし、 NAはR独自の表現であり、この決まりの中には含まれていません。</p>
 <p>Rでは、少し特殊な仕組みでNAを実現していて、仮数部が1954(R言語設計者の一人のRoss Ihakaの誕生年)のNaNをNAとして区別して扱っています。</p>
 <p>今回、libr-bridgeを作るのに、Rの内部を調べていくうちにこういった小ネタをいくつか見つけたので、また次の機会にでも記事にしたいと思います。</p>

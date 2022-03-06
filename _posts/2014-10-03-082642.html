@@ -38,11 +38,11 @@ Mac(Homebrew): <strong><em>brew install ddrescue</em></strong></pre>
 <p>Macにも<code>fdisk</code>はありますが、残念ながらデバイス名の確認には使えません。マウントできている場合は<code>df -h</code>で確認できますが、トラブルが起こっているディスクがマウントできるとは限りません。</p>
 <p>付属のディスクユーティリティを使うことでデバイス名を調べることができます。</p>
 <p>FATなどの管理領域が壊れてしまっているディスクの場合、接続すると読み取りができないというメッセージが出ます。「無視」をクリックして下さい。</p>
-<p><a href="http://blog.kcrt.net/files/2014/10/diskunavailable.png"><img class="alignnone size-full wp-image-700" src="http://blog.kcrt.net/files/2014/10/diskunavailable.png" alt="diskunavailable" width="556" height="272" /></a></p>
+<p><a href="/images/2014-10-03_diskunavailable.png"><img class="alignnone size-full wp-image-700" src="/images/2014-10-03_diskunavailable.png" alt="diskunavailable" width="556" height="272" /></a></p>
 <p>ディスクユーティリティを起動すると左のリストにディスクが表示されますので、対象のディスク(またはパーティション)を選択して、「情報」を押して下さい。</p>
-<p><a href="http://blog.kcrt.net/files/2014/10/diskdevname1.png"><img class="alignnone size-full wp-image-696" src="http://blog.kcrt.net/files/2014/10/diskdevname1.png" alt="diskdevname1" width="898" height="726" /></a></p>
+<p><a href="/images/2014-10-03_diskdevname1.png"><img class="alignnone size-full wp-image-696" src="/images/2014-10-03_diskdevname1.png" alt="diskdevname1" width="898" height="726" /></a></p>
 <p>「情報」を押すと、ディスク識別子が表示されます。下図では「disk3」となっており、デバイス名としては「<code><strong>/dev/disk3</strong></code>」を使用していくことになります。</p>
-<p><a href="http://blog.kcrt.net/files/2014/10/diskdevname2.png"><img class="alignnone size-full wp-image-697" src="http://blog.kcrt.net/files/2014/10/diskdevname2.png" alt="diskdevname2" width="783" height="616" /></a></p>
+<p><a href="/images/2014-10-03_diskdevname2.png"><img class="alignnone size-full wp-image-697" src="/images/2014-10-03_diskdevname2.png" alt="diskdevname2" width="783" height="616" /></a></p>
 <h4>Ubuntu</h4>
 <p>Ubuntuの場合、<code>sudo fdisk -l</code>でデバイス名の確認ができます。</p>
 <pre>% <strong><em>sudo fdisk -l</em></strong>
@@ -264,7 +264,7 @@ http://www.cgsecurity.org/wiki/Donation
 [ Quit ]
 </pre>
 <p>全部で384個のデータが救出されたようです。</p>
-<p><a href="http://blog.kcrt.net/files/2014/10/recovereddata.png"><img class="alignnone size-full wp-image-708" src="http://blog.kcrt.net/files/2014/10/recovereddata.png" alt="recovereddata" width="509" height="405" /></a></p>
+<p><a href="/images/2014-10-03_recovereddata.png"><img class="alignnone size-full wp-image-708" src="/images/2014-10-03_recovereddata.png" alt="recovereddata" width="509" height="405" /></a></p>
 <p>残念ながら、ファイル名とディレクトリ構造は修復されませんし、すべてのファイルが正常に戻るわけではありません。ですが、全く読み込めなかったものがここまで戻ってくるなら上出来だと思います。</p>
 <hr />
 <p>さて、あなたは運良くデータを取り戻すことができたでしょうか。ディスク障害の原因は多岐にわたり、ここであげた方法で全てのデータが戻ってくるわけではありません。くれぐれもこまめなバックアップをおすすめします。</p>

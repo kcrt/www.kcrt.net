@@ -11,7 +11,7 @@ type: post
 ---
 
 <p>Ubuntu 12.04 LTSからUbuntu 14.04 LTSにアップグレードしたところ、vimの設定ファイルが変わったのか、<strong>自分の.vimrcの設定に関わらず</strong>、tabstopが8で表示されるようになってしまいました。</p>
-<p style="text-align: justify;"><a href="http://blog.kcrt.net/files/2014/04/tab81.png"><img class="alignnone size-full wp-image-644" src="http://blog.kcrt.net/files/2014/04/tab81.png" alt="tab8" width="769" height="339" /></a></p>
+<p style="text-align: justify;"><a href="/images/2014-04-29_tab81.png"><img class="alignnone size-full wp-image-644" src="/images/2014-04-29_tab81.png" alt="tab8" width="769" height="339" /></a></p>
 <p>まず、pythonでのタブ文字の使用ですが、公式ドキュメントにはこうあります</p>
 <blockquote><p>First, tabs are replaced (from left to right) by one to eight spaces such that the total number of characters up to and including the replacement is a multiple of eight (this is intended to be the same rule as used by Unix). The total number of spaces preceding the first non-blank character then determines the line’s indentation. (snip)</p>
 <p>Cross-platform compatibility note: because of the nature of text editors on non-UNIX platforms, it is unwise to use a mixture of spaces and tabs for the indentation in a single source file. It should also be noted that different platforms may explicitly limit the maximum indentation level.</p>
@@ -28,7 +28,7 @@ type: post
 <p>まずは旧来のソースコードの変換。変換にはexpandコマンドが便利です。-t4オプションを指定してタブ文字が"4 スペース"であることを知らせます。</p>
 <pre>expand -t4 tab_letter_indent_file.py &gt; new_indent_file.py</pre>
 <p>これで、新しくできたファイルを再度開くと、従来通りの見た目のタブ文字が"4 スペース"として表示されたと思います。</p>
-<p><a href="http://blog.kcrt.net/files/2014/04/tab4.png"><img class="alignnone size-full wp-image-645" src="http://blog.kcrt.net/files/2014/04/tab4.png" alt="tab4" width="769" height="342" /></a></p>
+<p><a href="/images/2014-04-29_tab4.png"><img class="alignnone size-full wp-image-645" src="/images/2014-04-29_tab4.png" alt="tab4" width="769" height="342" /></a></p>
 <p>開いてみるとスペースに置換されインデントは4文字で元通りの見た目です。</p>
 <p>新しいvimの設定ファイルでは、expandtabの設定もきちんとされていて、このままで[Tab]キーと[Backspace]キーが問題なく使えるようになっています。</p>
 <p>expandtabの設定がなければ</p>

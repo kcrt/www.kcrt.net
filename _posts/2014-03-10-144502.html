@@ -14,11 +14,11 @@ type: post
 <p>まず、LMSについて考える前に、正規分布(<i>normal distribution)</i>についておさらいしましょう。</p>
 <p>正規分布とは<strong>平均を中心とした左右対称山形</strong>の確率分布です。</p>
 <p>よく、高校数学や統計学の教科書で下のようなグラフを眼にしたことがあると思います。</p>
-<p><a href="http://blog.kcrt.net/files/2013/08/normdist.png"><img class="alignnone  wp-image-617" src="http://blog.kcrt.net/files/2013/08/normdist-1024x641.png" alt="normdist" width="614" height="385" /></a></p>
+<p><a href="/images/2014-03-10_normdist.png"><img class="alignnone  wp-image-617" src="/images/2014-03-10_normdist-1024x641.png" alt="normdist" width="614" height="385" /></a></p>
 <p><strong>中央に行くほど山が高く</strong>て、<strong>裾野に行くほど左右対称に低く</strong>なっています。</p>
 <p>この正規分布は統計学において頻繁に利用されており、多くの統計的手法(t検定や分散分析など)が、母集団が正規分布に従っていると仮定して使用されています。</p>
 <p>たとえば、12歳の男児の身長を考えてみましょう。平均149.1[cm], 偏差 7.6 [cm] で下のようなグラフで表せます。</p>
-<p><a href="http://blog.kcrt.net/files/2013/08/12yoht.png"><img class="alignnone  wp-image-618" src="http://blog.kcrt.net/files/2013/08/12yoht-1024x638.png" alt="12yoht" width="614" height="383" /></a></p>
+<p><a href="/images/2014-03-10_12yoht.png"><img class="alignnone  wp-image-618" src="/images/2014-03-10_12yoht-1024x638.png" alt="12yoht" width="614" height="383" /></a></p>
 <p>赤い線が平均(149.1[cm])です。このグラフを見れば</p>
 <ul>
 <li>12歳の男児では、149[cm]付近の子が多いこと。</li>
@@ -31,7 +31,7 @@ type: post
 <p>大変便利な正規分布ですが欠点がありました。それは、<strong>表したい数値が正規分布に従っていない場合には使用できない</strong>というところです。</p>
 <p>たとえば、予定日ちょうどで生まれた男児の体重は下のグラフのようになっています。</p>
 <p>(<strong>注:</strong> 実際は下記ほど偏り方(歪度)が強くないです。説明をわかりやすくするために少し誇張して描いています。)</p>
-<p><a href="http://blog.kcrt.net/files/2013/08/largel.png"><img class="alignnone size-full wp-image-619" src="http://blog.kcrt.net/files/2013/08/largel.png" alt="largel" width="500" height="300" /></a></p>
+<p><a href="/images/2014-03-10_largel.png"><img class="alignnone size-full wp-image-619" src="/images/2014-03-10_largel.png" alt="largel" width="500" height="300" /></a></p>
 <p>出生体重は上のように正規分布に従っておらず、山が少し右に偏っていて、裾野が左に長い形をしています。</p>
 <p>このように表したい数値が正規分布に従っていない場合に、<strong>Box-Cox変換</strong>を行うことで正規分布に近づけることがあります。</p>
 <p>LMS法は、従来の平均(LMSのMに相当)と正規分布の幅の広がり方(LMSのSに相当)に加え、<strong>Box-Cox変換の係数であるL(歪度)</strong>を加えることで左右に偏ったデータを表せるように拡張したものとなっています。</p>
