@@ -9,6 +9,7 @@ https://www.kcrt.net
   - [ ] add table class to Table tag
   - [ ] Search
   - [ ] Ads
+  - [ ] domain check
 
 ## To run locally,
 

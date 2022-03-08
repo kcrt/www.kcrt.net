@@ -29,5 +29,14 @@ document.addEventListener('DOMContentLoaded', () => {
         table.classList.add("table", "is-bordered");
     }
 
+    /* ===== domain check ===== */
+    const domain = document.domain;
+    switch(domain){
+        case "localhost":
+            document.getElementById("navbar").classList.add("tiger")
+            break;
+        case "kcrt.github.io":
+            document.getElementById("content").classList.add("blur")
+    }
 
 });

@@ -20,7 +20,7 @@
 </head>
 
 <body class="has-navbar-fixed-top">
-	<nav class="navbar is-fixed-top is-light" role="navigation">
+	<nav class="navbar is-fixed-top is-light" role="navigation" id="navbar">
 		<div class="navbar-brand">
 			<div class="navbar-item" href="/">
 				<img src="/assets/images/favicon.png" alt="Nanoseconds Hunter">
@@ -77,7 +77,7 @@
 		</div>
 	</nav>
 	<section class="section">
-		<div class="container box">
+		<div class="container box" id="" content">
 			<section class="hero is-info">
 				<div class="hero-body">
 					<h2 class="title">
@@ -118,29 +118,32 @@
 	</section>
 
 	{% if page.tags contains "AYOR" %}
-	<div class="notification is-warning ayor-info">
-		<button class="delete"></button>
+	<div class="notification is-warning float-info-dialog">
+		<button class="delete is-large"></button>
 		<h4 class="title is-4">At your own risk!</h4>
 		この文章に掲載されている内容は、個人のメモとして過去に作成された物であり、<strong>内容に関して保証はありません。</strong><br />
 	</div>
 	{% endif %}
 
 	{% if page.tags contains "private-memo" %}
-	<div class="notification is-info ayor-info">
+	<div class="notification is-info float-info-dialog">
 		<button id="scope_delete" class="delete hidden"></button>
 		<h4 class="title is-4">Sorry, private only...</h4>
-		このページの内容は、個人のメモとして利用するために作成された物で、<strong>一般に対して公開しているものではありません。</strong>また、記載についてアップデートされているとは限らず、<strong>現状にそぐわない古い情報が含まれている</strong>可能性があります。<br />
-		<a onclick="document.querySelector('div.blur').classList.remove('blur'); document.querySelector('#scope_delete').dispatchEvent(new MouseEvent('click'));"
-			href="#">それでも見る...</a>
+		<div class="has-text-weight-medium">
+			このページの内容は、個人のメモとして利用するために作成された物で、<strong>一般に対して公開しているものではありません。</strong>また、記載についてアップデートされているとは限らず、<strong>現状にそぐわない古い情報が含まれている</strong>可能性があります。<br />
+			<a onclick="document.querySelector('div.blur').classList.remove('blur'); document.querySelector('#scope_delete').dispatchEvent(new MouseEvent('click'));"
+				href="#">それでも見る...</a>
+		</div>
 	</div>
-
 	{% endif %}
 
 	<footer class="footer">
-		<div class="content has-text-centered">
-			Feel free to link to my site! <br />
+		<div class="content has-text-right">
 			Written by <a href="https://profile.kcrt.net/">TAKAHASHI, Kyohei (kcrt)</a> - last update: {{site.time |
-			date: "%Y-%m-%d %H:%M %Z"}}
+			date: "%Y-%m-%d %H:%M %Z"}}<br />
+			<a href="https://bulma.io">
+				<img src="https://bulma.io/images/made-with-bulma.png" alt="Made with Bulma" width="128" height="24">
+			</a>
 		</div>
 	</footer>
 
