@@ -85,7 +85,7 @@
 					</h2>
 					<h2 class="subtitle">
 						{{page.date | date: "%Y-%m-%d %H:%M %Z"}}{%if page.update %}{{page.update | date: "%Y-%m-%d
-						%H:%M %Z" | prepend: ", last
+						%H:%M %Z" | prepend: "/ last
 						update: "}}{% endif %} by
 						kcrt
 					</h2>
@@ -97,7 +97,7 @@
 				</div>
 			</section>
 			<div>&nbsp;</div>
-			<div class="content">
+			<div class="content{% if page.tags contains 'private-memo' %} blur{% endif %}">
 				{{content}}
 			</div>
 		</div>
@@ -116,6 +116,26 @@
 		</nav>
 		{% endif %}
 	</section>
+
+	{% if page.tags contains "AYOR" %}
+	<div class="notification is-warning ayor-info">
+		<button class="delete"></button>
+		<h4 class="title is-4">At your own risk!</h4>
+		この文章に掲載されている内容は、個人のメモとして過去に作成された物であり、<strong>内容に関して保証はありません。</strong><br />
+	</div>
+	{% endif %}
+
+	{% if page.tags contains "private-memo" %}
+	<div class="notification is-info ayor-info">
+		<button id="scope_delete" class="delete hidden"></button>
+		<h4 class="title is-4">Sorry, private only...</h4>
+		このページの内容は、個人のメモとして利用するために作成された物で、<strong>一般に対して公開しているものではありません。</strong>また、記載についてアップデートされているとは限らず、<strong>現状にそぐわない古い情報が含まれている</strong>可能性があります。<br />
+		<a onclick="document.querySelector('div.blur').classList.remove('blur'); document.querySelector('#scope_delete').dispatchEvent(new MouseEvent('click'));"
+			href="#">それでも見る...</a>
+	</div>
+
+	{% endif %}
+
 	<footer class="footer">
 		<div class="content has-text-centered">
 			Feel free to link to my site! <br />

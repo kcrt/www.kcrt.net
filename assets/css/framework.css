@@ -12,3 +12,25 @@ div.content h3 {
 div.content h4 {
     border-bottom: 0.5px dashed #ccc;
 }
+
+.blur {
+    filter: blur(5px);
+}
+
+.ayor-info {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    width: 80%;
+    z-index: 9999999;
+    border-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem #0003;
+}
+
+.hidden {
+    display: none;
+}
+
+.scope-kcrt {
+    filter: grayscale(1.0) blur(5px);
+}

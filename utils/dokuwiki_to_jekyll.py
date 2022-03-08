@@ -49,7 +49,7 @@ def main():
             "%Y-%m-%d %H:%M:%S +0900")
         post["tags"] = parts[:-1]
         post["categories"] = post["tags"][:]
-        post["tags"].append("scope:kcrt")
+        post["tags"].append("private-memo")
         post["tags"].append("AYOR")
         post["title"] = parts[-1]
         post["type"] = "page"
