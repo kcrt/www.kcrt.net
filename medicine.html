@@ -1,0 +1,23 @@
+---
+title: 医療関係
+permalink: /medicine
+---
+
+<ul>
+
+    {% for apage in site.pages %}
+
+        {% if apage.categories contains "medicine" %}
+            <li>
+                <a href="{{apage.url}}">{{apage.title}}</a>&nbsp;
+                {% for tag in apage.tags %}
+                {% assign tag5 = tag | slice: 0, 6 %}
+                {% unless tag == "medicine" or tag == "AYOR" or tag5 == "scope:" %}
+                    <a href="/tags#{{tag}}" class="tag is-light is-link">{{tag}}</a>
+                {% endunless %}
+                {% endfor %}
+            </li>
+        {% endif %}
+
+    {% endfor %}
+</ul>
