@@ -35,7 +35,6 @@ $ asdf local python 3.9.9
 $ python3 -m venv .
 $ source bin/activate
 
-$ brew install tensorflow
 $ SYSTEM_VERSION_COMPAT=1 GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1 pip3 install grpcio
 $ HDF5_DIR=`brew --prefix hdf5` pip3 install tensorflow-macos tensorflow-metal
 ```
