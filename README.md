@@ -5,11 +5,11 @@ https://www.kcrt.net
 # TODO:
 
   - [ ] amazon tag
-  - [ ] Google Analytics
-  - [ ] add table class to Table tag
+  - [x] Google Analytics
+  - [x] add table class to Table tag
   - [ ] Search
   - [ ] Ads
-  - [ ] domain check
+  - [x] domain check
 
 ## To run locally,
 
