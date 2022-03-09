@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="/assets/css/framework.css">
 	<script src="/assets/js/pages.js" defer></script>
 
+	{% unless site.url contains "localhost" %}
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-4J75R7ELRP"></script>
 	<script>
@@ -24,10 +25,12 @@
 		gtag('js', new Date());
 		gtag('config', 'G-4J75R7ELRP');
 	</script>
+	{% endunless %}
 
 </head>
 
 <body class="has-navbar-fixed-top">
+	<!-- navbar -->
 	<nav class="navbar is-fixed-top is-light" role="navigation" id="navbar">
 		<div class="navbar-brand">
 			<div class="navbar-item" href="/">
@@ -84,8 +87,10 @@
 			</div>
 		</div>
 	</nav>
+	<!-- end of navbar -->
+
 	<section class="section">
-		<div class="container box" id="" content">
+		<div class="container box" id="content">
 			<section class="hero is-info">
 				<div class="hero-body">
 					<h2 class="title">
@@ -101,6 +106,12 @@
 						{% for tag in page.tags %}
 						<a href="/tags#{{tag}}" class="tag is-link">{{tag}}</a>
 						{% endfor %}
+					</div>
+					<div class="has-text-right">
+						<a
+							href="https://twitter.com/intent/tweet?text={{page.title | url_encode}}+-+{{site.url}}{{page.url}}"><img
+								width="32" height="32" src="/assets/images/twitter-logo-white.png" alt="Tweet" />
+						</a>
 					</div>
 				</div>
 			</section>
