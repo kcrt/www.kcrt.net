@@ -65,5 +65,6 @@ $ python3 tf_test.py
 - これで無理になってたら教えてください or Pull requestお願いします
 
 ### 2021-03-20 追記
+
 - サンプル実行コード追加
 - h5pyとhomebrewのhdf5のバージョンが不一致だと動かないので、そのときは`--no-binary=h5py`で`h5py`をインストール

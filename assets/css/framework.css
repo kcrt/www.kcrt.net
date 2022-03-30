@@ -46,3 +46,17 @@ div.content h4 {
 .tiger h1.title::after{
     content: " (dev)"
 }
+
+p.warning::before {
+    content: "warning";
+    display: block;
+    font-size: larger;
+    color: #888;
+}
+p.warning {
+    padding: 0.5em 1em;
+    margin: 0.5em 0;
+    border: double 5px #f9bdff;
+    background: #fdeaff;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+}
