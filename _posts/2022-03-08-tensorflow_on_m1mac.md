@@ -38,6 +38,7 @@ $ source bin/activate
 $ pip install -U pip
 
 $ SYSTEM_VERSION_COMPAT=1 GRPC_PYTHON_BUILD_SYSTEM_OPENSSL=1 GRPC_PYTHON_BUILD_SYSTEM_ZLIB=1 pip3 install grpcio
+$ HDF5_DIR=`brew --prefix hdf5` pip3 install --no-binary=h5py h5py
 $ HDF5_DIR=`brew --prefix hdf5` pip3 install tensorflow-macos tensorflow-metal
 $ echo "import tensorflow as tf
 
@@ -68,3 +69,7 @@ $ python3 tf_test.py
 
 - サンプル実行コード追加
 - h5pyとhomebrewのhdf5のバージョンが不一致だと動かないので、そのときは`--no-binary=h5py`で`h5py`をインストール
+
+### 2022-05-22 追記
+
+- h5pyのinstall方法を上記へ
