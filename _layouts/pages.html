@@ -15,7 +15,8 @@
 
 	<link rel="stylesheet" href="/assets/css/framework.css">
 	<script src="/assets/js/pages.js" defer></script>
-	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6260325678803842" crossorigin="anonymous"></script>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6260325678803842"
+		crossorigin="anonymous"></script>
 
 	{% unless site.url contains "localhost" %}
 	<!-- Global site tag (gtag.js) - Google Analytics -->
@@ -133,8 +134,10 @@
 				{{content}}
 			</div>
 			<div>
-				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6260325678803842" data-ad-slot="8273772651" data-ad-format="auto" data-full-width-responsive="true"></ins>
-				<script> (adsbygoogle = window.adsbygoogle || []).push({}); </script></script>
+				<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6260325678803842"
+					data-ad-slot="8273772651" data-ad-format="auto" data-full-width-responsive="true"></ins>
+				<script> (adsbygoogle = window.adsbygoogle || []).push({}); </script>
+				</script>
 			</div>
 		</div>
 		{% if page.previous.url or page.next.url %}
@@ -167,7 +170,8 @@
 		<h4 class="title is-4">Sorry, private only...</h4>
 		<div class="has-text-weight-medium">
 			このページの内容は、個人のメモとして利用するために作成された物で、<strong>一般に対して公開しているものではありません。</strong>また、記載についてアップデートされているとは限らず、<strong>現状にそぐわない古い情報が含まれている</strong>可能性があります。<br />
-			<a onclick="document.querySelector('div.blur').classList.remove('blur'); document.querySelector('#scope_delete').dispatchEvent(new MouseEvent('click'));"
+			<a class="private-memo-approve"
+				onclick="document.querySelector('div.blur').classList.remove('blur'); document.querySelector('#scope_delete').dispatchEvent(new MouseEvent('click'));"
 				href="#">それでも見る...</a>
 		</div>
 	</div>

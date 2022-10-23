@@ -3,7 +3,7 @@
 
 div.content h2 {
     transform: skew(-10deg);
-    background: linear-gradient(transparent 50%,#d9f4ff 53%,#d9f4ff 75%,transparent 80%);
+    background: linear-gradient(transparent 50%, #d9f4ff 53%, #d9f4ff 75%, transparent 80%);
 }
 
 div.content h3 {
@@ -40,10 +40,12 @@ div.content h4 {
     background: linear-gradient(-45deg, #C90 17%, #000 20%, #000 27%, #C90 30%, #C90 40%, #000 42%, #000 50%, #C90 52%, #C90 65%);
     color: white;
 }
+
 .tiger h1.title {
     color: white;
 }
-.tiger h1.title::after{
+
+.tiger h1.title::after {
     content: " (dev)"
 }
 
@@ -53,10 +55,15 @@ p.warning::before {
     font-size: larger;
     color: #888;
 }
+
 p.warning {
     padding: 0.5em 1em;
     margin: 0.5em 0;
     border: double 5px #f9bdff;
     background: #fdeaff;
     box-shadow: 0 3px 4px rgba(0, 0, 0, 0.3);
+}
+
+.private-memo-approve {
+    font-weight: bold;
 }
